@@ -2,15 +2,15 @@ import { Outlet } from 'react-router-dom';
 
 const Root = () => {
   return (
-    <>
-      <header>Default Header</header>
+    <div className="min-h-svh grid grid-rows-[auto_1fr_auto]">
+      <header className="container">Default Header</header>
 
-      <main>
+      <main className="container">
         <Outlet />
       </main>
 
-      <footer>Default Footer</footer>
-    </>
+      <footer className="container">Default Footer</footer>
+    </div>
   );
 };
 

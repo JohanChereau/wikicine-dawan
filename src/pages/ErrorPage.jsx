@@ -8,9 +8,9 @@ const ErrorPage = () => {
   } = useRouteError();
 
   return (
-    <div>
+    <>
       {status} - {statusText} : {message}
-    </div>
+    </>
   );
 };
 
