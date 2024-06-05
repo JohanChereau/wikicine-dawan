@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { supabase } from '@/services/supabase/supabaseClient';
 
 import { Button } from '@/components/ui/Button';
 import {
@@ -11,11 +12,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import { Checkbox } from '@/components/ui/Checkbox';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BackgroundMesh from '@/components/ui/BackgroundMesh';
+import { LoaderCircleIcon } from 'lucide-react';
 
 const FormSchema = z
   .object({
@@ -76,8 +79,31 @@ const SignUpPage = () => {
     },
   });
 
-  function onSubmit(data) {
-    console.log(data);
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { isSubmitting },
+  } = form;
+  const navigate = useNavigate();
+
+  async function onSubmit(data) {
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      navigate('/');
+    } catch (error) {
+      setError('root', {
+        message: error?.message || 'An unknown error occurred',
+      });
+    }
   }
 
   return (
@@ -91,11 +117,11 @@ const SignUpPage = () => {
       </div>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           className="space-y-6 max-w-[800px] w-full"
         >
           <FormField
-            control={form.control}
+            control={control}
             name="username"
             render={({ field }) => (
               <FormItem>
@@ -103,14 +129,16 @@ const SignUpPage = () => {
                 <FormControl>
                   <Input placeholder="@username" {...field} />
                 </FormControl>
-                <FormDescription>This is your public display name.</FormDescription>
+                <FormDescription>
+                  This is your unique public display name.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <div className="grid gap-6 md:grid-cols-2">
             <FormField
-              control={form.control}
+              control={control}
               name="firstname"
               render={({ field }) => (
                 <FormItem>
@@ -124,7 +152,7 @@ const SignUpPage = () => {
             />
 
             <FormField
-              control={form.control}
+              control={control}
               name="lastname"
               render={({ field }) => (
                 <FormItem>
@@ -139,7 +167,7 @@ const SignUpPage = () => {
           </div>
 
           <FormField
-            control={form.control}
+            control={control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -153,7 +181,7 @@ const SignUpPage = () => {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="password"
             render={({ field }) => (
               <FormItem>
@@ -167,7 +195,7 @@ const SignUpPage = () => {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
@@ -181,7 +209,7 @@ const SignUpPage = () => {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="acceptTerms"
             render={({ field }) => (
               <FormItem>
@@ -194,9 +222,18 @@ const SignUpPage = () => {
             )}
           />
 
-          <Button type="submit" className="w-full">
-            Create an account
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <div className="inline-flex items-center gap-2">
+                <LoaderCircleIcon className="animate-spin" />
+                <span>Creating your account...</span>
+              </div>
+            ) : (
+              'Create an account'
+            )}
           </Button>
+
+          <FormRootError />
 
           <p className="text-center">
             Already have an account?{' '}

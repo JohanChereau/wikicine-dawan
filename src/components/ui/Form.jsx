@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { Controller, FormProvider, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  FormProvider,
+  useFormContext,
+  useFormState,
+} from 'react-hook-form';
 
 import { cn } from '@/utils/style/cn.js';
 import { Label } from '@/components/ui/Label';
@@ -119,6 +124,28 @@ const FormMessage = React.forwardRef(({ className, children, ...props }, ref) =>
 });
 FormMessage.displayName = 'FormMessage';
 
+const FormRootError = React.forwardRef((props, ref) => {
+  const { className, ...otherProps } = props;
+  const { errors } = useFormState();
+  const rootError = errors.root;
+
+  if (!rootError) {
+    return null;
+  }
+
+  return (
+    <p
+      ref={ref}
+      className={cn('text-destructive text-sm font-medium', className)}
+      {...otherProps}
+    >
+      {rootError.message}
+    </p>
+  );
+});
+
+FormRootError.displayName = 'FormRootError';
+
 export {
   useFormField,
   Form,
@@ -128,4 +155,5 @@ export {
   FormDescription,
   FormMessage,
   FormField,
+  FormRootError,
 };
