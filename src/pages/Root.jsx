@@ -1,4 +1,4 @@
-import Badge from '@/components/ui/Badge';
+import Badge from '@/components/Badge';
 import { Outlet } from 'react-router-dom';
 
 const Root = () => {
