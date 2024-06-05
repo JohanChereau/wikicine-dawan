@@ -1,5 +1,24 @@
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Root from './pages/Root';
+import HomePage from './pages/HomePage';
+import ErrorPage from './pages/ErrorPage';
+
 const App = () => {
-  return <h1 className="text-3xl font-bold underline text-red-500">Hello world!</h1>;
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: '',
+          element: <HomePage />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;
