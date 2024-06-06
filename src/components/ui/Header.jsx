@@ -1,5 +1,5 @@
 import { useAuth } from '@/services/providers/auth-provider';
-import Avatar from './Avatar';
+import Avatar from '../Avatar';
 import { Button } from './Button';
 import { EnterIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';

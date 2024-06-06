@@ -73,11 +73,8 @@ const Avatar = ({ userProfile }) => {
             <span>{capitalize(themeToSwitch)} theme</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem>
-            <ExitIcon
-              className="mr-2"
-              onClick={() => navigate('/dashboard/signout')}
-            />
+          <DropdownMenuItem onClick={() => navigate('/dashboard/signout')}>
+            <ExitIcon className="mr-2" />
             <span>Sign Out</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>

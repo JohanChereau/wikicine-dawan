@@ -9,63 +9,81 @@ export const AuthProvider = ({ children }) => {
     session: null,
   });
   const [channel, setChannel] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const fetchSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setUserInfo((prevUserInfo) => ({ ...prevUserInfo, session }));
-      supabase.auth.onAuthStateChange((_event, session) => {
-        setUserInfo({ session, profile: null });
-      });
       setIsLoading(false);
+    };
+
+    fetchSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserInfo({ session, profile: null });
     });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (userInfo.session?.user && !userInfo.profile) {
-      setIsLoading(true);
-      listenToUserProfileChanges(userInfo.session.user.id).then((newChannel) => {
+    const updateUserProfile = async () => {
+      if (userInfo.session?.user && !userInfo.profile) {
+        setIsLoading(true);
+        const newChannel = await listenToUserProfileChanges(
+          userInfo.session.user.id
+        );
         if (channel) {
           channel.unsubscribe();
         }
         setChannel(newChannel);
         setIsLoading(false);
-      });
-    } else if (!userInfo.session?.user) {
-      channel?.unsubscribe();
-      setChannel(null);
-    }
+      } else if (!userInfo.session?.user) {
+        channel?.unsubscribe();
+        setChannel(null);
+      }
+    };
+
+    updateUserProfile();
   }, [userInfo.session]);
 
   async function listenToUserProfileChanges(userId) {
-    setIsLoading(true);
-    const { data } = await supabase
-      .from('user_profiles')
-      .select('*')
-      .filter('user_id', 'eq', userId);
-    if (data?.[0]) {
-      setUserInfo((prevUserInfo) => ({ ...prevUserInfo, profile: data?.[0] }));
+    try {
+      const { data } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('user_id', userId);
+
+      if (data?.[0]) {
+        setUserInfo((prevUserInfo) => ({ ...prevUserInfo, profile: data[0] }));
+      }
+
+      return supabase
+        .channel(`public:user_profiles`)
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'user_profiles',
+            filter: `user_id=eq.${userId}`,
+          },
+          (payload) => {
+            setUserInfo((prevUserInfo) => ({
+              ...prevUserInfo,
+              profile: payload.new,
+            }));
+          }
+        )
+        .subscribe();
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
     }
-    setIsLoading(false);
-    return supabase
-      .channel(`public:user_profiles`)
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'user_profiles',
-          filter: `user_id=eq.${userId}`,
-        },
-        (payload) => {
-          setUserInfo((prevUserInfo) => ({
-            ...prevUserInfo,
-            profile: payload.new,
-          }));
-        }
-      )
-      .subscribe();
   }
 
   return (
