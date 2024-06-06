@@ -1,7 +1,7 @@
 const HomePage = () => {
   return (
     <>
-      <div className="bg-yellow-200 py-4 text-center">
+      {/* <div className="bg-yellow-200 py-4 text-center">
         <div className="flex justify-center items-center mb-4">
           <div className="bg-white rounded-full p-2 shadow-md">
             <svg
@@ -39,7 +39,7 @@ const HomePage = () => {
       </div>
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -9,23 +9,28 @@ export const AuthProvider = ({ children }) => {
     session: null,
   });
   const [channel, setChannel] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUserInfo((prevUserInfo) => ({ ...prevUserInfo, session }));
       supabase.auth.onAuthStateChange((_event, session) => {
         setUserInfo({ session, profile: null });
       });
+      setIsLoading(false);
     });
   }, []);
 
   useEffect(() => {
     if (userInfo.session?.user && !userInfo.profile) {
+      setIsLoading(true);
       listenToUserProfileChanges(userInfo.session.user.id).then((newChannel) => {
         if (channel) {
           channel.unsubscribe();
         }
         setChannel(newChannel);
+        setIsLoading(false);
       });
     } else if (!userInfo.session?.user) {
       channel?.unsubscribe();
@@ -34,6 +39,7 @@ export const AuthProvider = ({ children }) => {
   }, [userInfo.session]);
 
   async function listenToUserProfileChanges(userId) {
+    setIsLoading(true);
     const { data } = await supabase
       .from('user_profiles')
       .select('*')
@@ -41,6 +47,7 @@ export const AuthProvider = ({ children }) => {
     if (data?.[0]) {
       setUserInfo((prevUserInfo) => ({ ...prevUserInfo, profile: data?.[0] }));
     }
+    setIsLoading(false);
     return supabase
       .channel(`public:user_profiles`)
       .on(
@@ -61,7 +68,11 @@ export const AuthProvider = ({ children }) => {
       .subscribe();
   }
 
-  return <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ ...userInfo, isLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
