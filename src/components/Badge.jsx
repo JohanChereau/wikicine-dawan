@@ -1,12 +1,12 @@
 import React from 'react'
 
 
-const Badge = ({rating, moonIcon}) => {
+const Badge = ({rating, Icon}) => {
 
   return (
     <div className="container w-fit border border-white rounded">
-    <div>      
-      rating : {rating} 
+    <div>
+      {rating}
     </div>
     </div>
   )
