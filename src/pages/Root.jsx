@@ -1,4 +1,3 @@
-import Badge from '@/components/Badge';
 import { Outlet } from 'react-router-dom';
 
 const Root = () => {
@@ -8,7 +7,6 @@ const Root = () => {
 
       <main className="container">
         <Outlet />
-        <Badge />
       </main>
 
       <footer className="container">Default Footer</footer>

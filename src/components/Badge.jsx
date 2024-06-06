@@ -1,12 +1,12 @@
-import { SunIcon } from 'lucide-react'
 import React from 'react'
 
-const Badge = () => {
+
+const Badge = ({rating, moonIcon}) => {
+
   return (
-    <div className="container w-fit border border-white">
-    <div className="">
-      <SunIcon/>
-      <p className= "text text-white">1/5</p>
+    <div className="container w-fit border border-white rounded">
+    <div>      
+      rating : {rating} 
     </div>
     </div>
   )
