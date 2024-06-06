@@ -146,7 +146,7 @@ const SignUpPage = () => {
     <section className="py-20 grid grid-flow-row gap-16 place-items-center w-full">
       <div className="text-center relative">
         <BackgroundMesh />
-        <h1 className="text-3xl md:text-6xl font-bold">Sign up</h1>
+        <h1 className="text-3xl md:text-6xl font-bold">Sign Up</h1>
         <p className="text-muted-foreground mt-4 md:text-xl">
           Enter your information to create an account.
         </p>
@@ -272,7 +272,7 @@ const SignUpPage = () => {
           <FormRootError />
 
           <p className="text-center">
-            Already have an account?{' '}
+            {'Already have an account? '}
             <Link to="/signin" className="underline">
               Sign in
             </Link>
