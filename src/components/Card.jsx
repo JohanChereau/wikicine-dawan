@@ -8,7 +8,7 @@ const Card = ({moviePoster, movieTitle, releaseDate}) => {
             <div className="grid gap-5 m-5 p-8 3xl">
 
                     <div>
-                        <img className="aspect-[9/16] object-cover image" src={moviePoster} alt="" />
+                        <img className="aspect-[9/16] object-cover image rounded" src={moviePoster} alt="moviePoster" />
                     </div>
                         
                         <div className="text-2xl">
