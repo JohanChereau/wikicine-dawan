@@ -11,7 +11,6 @@ const ProtectedRoute = () => {
     if (isLoading) return;
 
     if (!session) {
-      console.error('Not logged in!');
       navigate('/signin', { replace: true });
     }
   }, [navigate, session, isLoading]);
