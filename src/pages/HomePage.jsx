@@ -9,6 +9,7 @@ const HomePage = () => {
   <Card />
   </main>
 
+  
 </div>
 )
 };
