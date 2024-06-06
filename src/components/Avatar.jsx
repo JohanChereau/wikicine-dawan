@@ -18,6 +18,7 @@ import {
   SunIcon,
 } from '@radix-ui/react-icons';
 import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/Button';
 
 const Avatar = ({ userProfile }) => {
   const { theme, setTheme } = useTheme();
@@ -31,11 +32,13 @@ const Avatar = ({ userProfile }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <img
-          src={userAvatar}
-          alt="User profile picture"
-          className="aspect-square rounded-full object-cover max-w-12 cursor-pointer border border-muted-foreground"
-        />
+        <Button variant="icon">
+          <img
+            src={userAvatar}
+            alt="User profile picture"
+            className="aspect-square rounded-full object-cover max-w-12 cursor-pointer border border-muted-foreground"
+          />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>{`@${userProfile?.username}`}</DropdownMenuLabel>

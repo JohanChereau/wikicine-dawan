@@ -18,6 +18,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         linkMuted: 'text-muted-foreground underline-offset-4 hover:underline',
+        icon: 'w-fit rounded-full aspect-square',
       },
       size: {
         default: 'h-10 px-4 py-2',
