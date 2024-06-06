@@ -24,7 +24,8 @@ const FormSchema = z
   .object({
     username: z
       .string()
-      .min(2, { message: 'Username must be at least 2 characters.' }),
+      .min(3, { message: 'Username must be at least 3 characters.' })
+      .max(15, { message: 'Username must contain a maximum of 15 characters.' }),
     firstname: z
       .string()
       .min(2, { message: 'Firstname must be at least 2 characters.' }),
@@ -89,19 +90,54 @@ const SignUpPage = () => {
 
   async function onSubmit(data) {
     try {
-      const { error } = await supabase.auth.signUp({
+      // Check if the username is already taken
+      const { data: existingUser, error: userCheckError } = await supabase
+        .from('user_profiles')
+        .select('username')
+        .eq('username', data.username)
+        .maybeSingle();
+
+      if (existingUser) {
+        setError('username', {
+          type: 'manual',
+          message: 'Username is already taken.',
+        });
+        return;
+      }
+
+      if (userCheckError && userCheckError.code !== 'PGRST116') {
+        throw userCheckError;
+      }
+
+      // Sign up the user
+      const { data: signupData, error: signUpError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
       });
 
-      if (error) {
-        throw error;
+      if (signUpError) {
+        throw signUpError;
+      }
+
+      // After signing up, insert the user profile
+      const { error: profileInsertError } = await supabase
+        .from('user_profiles')
+        .insert([
+          {
+            user_id: signupData.user.id,
+            username: data?.username,
+          },
+        ]);
+
+      if (profileInsertError) {
+        throw profileInsertError;
       }
 
       navigate('/');
     } catch (error) {
+      console.error('Error during signup:', error);
       setError('root', {
-        message: error?.message || 'An unknown error occurred',
+        message: error.message || 'An unknown error occurred',
       });
     }
   }
