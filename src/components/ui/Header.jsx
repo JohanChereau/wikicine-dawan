@@ -10,9 +10,11 @@ const Header = () => {
 
   return (
     <header className="container flex justify-between items-center p-4">
-      <div className="text-2xl font-bold text-foreground">Wikiciné</div>
+      <Link to="/">
+        <span className="text-2xl font-bold text-foreground">Wikiciné</span>
+      </Link>
 
-      <div className="flex items-center">
+      <div>
         {isLoading && <Skeleton className="w-12 aspect-square rounded-full" />}
         {!isLoading && session && <Avatar userProfile={profile} />}
         {!isLoading && !session && (
