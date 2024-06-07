@@ -1,15 +1,12 @@
-import React from 'react'
-
-
-const Badge = ({rating, Icon}) => {
-
+const Badge = ({ rating, Icon, iconClassName }) => {
   return (
-    <div className="w-fit border border-white rounded p-2">
-    <div className='inline-flex gap-3 items-center'>
-    <Icon/> {rating}
-    </div> 
+    <div className="w-fit border border-muted-foreground rounded-md p-1 bg-muted">
+      <div className="inline-flex gap-2 items-center justify-evenly">
+        <Icon className={iconClassName} />
+        <span className="tracking-wider">{rating}</span>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Badge
+export default Badge;

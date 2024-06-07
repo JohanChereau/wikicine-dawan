@@ -1,26 +1,24 @@
-import { MoonIcon } from '@radix-ui/react-icons'
-import Badge from './Badge'
+import { FaStar } from 'react-icons/fa';
+import Badge from './Badge';
 
-const Card = ({moviePoster, movieTitle, releaseDate}) => {
+const Card = ({ moviePoster, movieTitle, releaseDate, rating }) => {
+  return (
+    <div className="grid grid-rows-subgrid row-span-4 gap-2 items-center">
+      <div>
+        <img
+          className="aspect-[2/3] object-cover image rounded-md"
+          src={moviePoster}
+          alt={`${movieTitle}'s poster`}
+        />
+      </div>
 
-    return (
-        <div className="w-72 p-none">
-            <div className="grid gap-5 m-5 p-8 3xl">
+      <h4 className="text-xl font-bold">{movieTitle}</h4>
 
-                    <div>
-                        <img className="aspect-[9/16] object-cover image rounded" src={moviePoster} alt="moviePoster" />
-                    </div>
-                        
-                        <div className="text-2xl">
-                            {movieTitle}
-                        </div>
+      <p className="text-muted-foreground text-base">{releaseDate}</p>
 
-                       <div>{releaseDate}</div>
+      <Badge rating={rating} Icon={FaStar} iconClassName="text-primary" />
+    </div>
+  );
+};
 
-                    <Badge rating={4.3} Icon={MoonIcon}/>
-            </div>
-        </div> 
-        )
-}
-
-export default Card
+export default Card;

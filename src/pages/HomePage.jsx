@@ -15,6 +15,7 @@ import {
 import { Input } from '@/components/ui/Input';
 import BackgroundMesh from '@/components/ui/BackgroundMesh';
 import { LoaderCircleIcon, SearchIcon } from 'lucide-react';
+import MoviesSuggestions from '@/components/MoviesSuggestions';
 
 const FormSchema = z.object({
   search: z.string(),
@@ -84,6 +85,8 @@ const HomePage = () => {
           <FormRootError />
         </Form>
       </section>
+
+      <MoviesSuggestions />
     </>
   );
 };
