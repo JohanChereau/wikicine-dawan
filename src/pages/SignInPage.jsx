@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { supabase } from '@/services/supabase/supabaseClient';
+import { useAuth } from '@/services/providers/auth-provider';
 
 import { Button } from '@/components/ui/Button';
+import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Form,
   FormControl,
@@ -49,7 +52,17 @@ const SignInPage = () => {
     setError,
     formState: { isSubmitting },
   } = form;
+
+  const { session, isLoading } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (session) {
+      navigate('/', { replace: true });
+    }
+  }, [navigate, session, isLoading]);
 
   async function onSubmit(data) {
     try {
@@ -70,6 +83,15 @@ const SignInPage = () => {
         message: error.message || 'An unknown error occurred',
       });
     }
+  }
+
+  if (isLoading) {
+    return (
+      <section className="grid gap-8">
+        <Skeleton className="w-full h-40" />
+        <Skeleton className="w-full h-40" />
+      </section>
+    );
   }
 
   return (
