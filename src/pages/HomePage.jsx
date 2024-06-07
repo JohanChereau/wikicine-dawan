@@ -47,7 +47,7 @@ const HomePage = () => {
       <section className="py-20 grid grid-flow-row gap-6 place-items-center w-full">
         <div className="text-center relative">
           <BackgroundMesh />
-          <h1 className="text-4xl md:text-6xl font-bold">Search a movie</h1>
+          <h2 className="text-4xl md:text-6xl font-bold">Search a movie</h2>
         </div>
         <Form {...form}>
           <form
@@ -89,4 +89,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

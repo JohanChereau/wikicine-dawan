@@ -10,9 +10,11 @@ const Header = () => {
 
   return (
     <header className="container flex justify-between items-center p-4">
-      <Link to="/">
-        <span className="text-2xl font-bold text-foreground">Wikiciné</span>
-      </Link>
+      <h1>
+        <Link to="/" className="text-2xl font-bold text-foreground">
+          Wikiciné
+        </Link>
+      </h1>
 
       <div>
         {isLoading && <Skeleton className="w-12 aspect-square rounded-full" />}
