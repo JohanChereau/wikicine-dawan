@@ -1,8 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
 
-import { Button } from '@/components/ui/Button';
 import {
   Form,
   FormControl,
@@ -14,34 +16,35 @@ import {
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import BackgroundMesh from '@/components/ui/BackgroundMesh';
-import { LoaderCircleIcon, SearchIcon } from 'lucide-react';
 import MoviesSuggestions from '@/components/MoviesSuggestions';
+import MovieSearchResults from '@/components/MoviesSearchResults';
 
 const FormSchema = z.object({
   search: z.string(),
 });
 
 const HomePage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('search') || '';
+
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      search: '',
+      search: query,
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = form;
+  const { control, watch } = form;
+  const searchValue = watch('search');
+  const debouncedSearchValue = useDebounce(searchValue, 500);
 
-  async function onSubmit(data) {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.error('Error during fetching movies:', error);
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      setSearchParams({ search: debouncedSearchValue });
+    } else {
+      setSearchParams({});
     }
-  }
+  }, [debouncedSearchValue, setSearchParams]);
 
   return (
     <>
@@ -51,10 +54,7 @@ const HomePage = () => {
           <h2 className="text-4xl md:text-6xl font-bold">Search a movie</h2>
         </div>
         <Form {...form}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="max-w-[600px] w-full grid grid-cols-[1fr_auto] content-center items-center gap-2"
-          >
+          <form className="max-w-[600px] w-full grid grid-cols-[1fr_auto] content-center items-center gap-2">
             <FormField
               control={control}
               name="search"
@@ -68,25 +68,12 @@ const HomePage = () => {
                 </FormItem>
               )}
             />
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              size="icon"
-              className="translate-y-1"
-            >
-              {isSubmitting ? (
-                <LoaderCircleIcon className="animate-spin" />
-              ) : (
-                <SearchIcon />
-              )}
-            </Button>
           </form>
           <FormRootError />
         </Form>
       </section>
 
-      <MoviesSuggestions />
+      {query ? <MovieSearchResults query={query} /> : <MoviesSuggestions />}
     </>
   );
 };

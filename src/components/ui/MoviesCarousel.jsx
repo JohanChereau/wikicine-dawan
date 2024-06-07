@@ -16,7 +16,7 @@ const MoviesCarousel = ({
   action = 'View all',
 }) => {
   return (
-    <div className="max-w-full grid gap-4 sm:px-8">
+    <div className="max-w-full grid gap-12 sm:px-8">
       <div className="flex justify-between items-center">
         <h3 className="text-2xl md:text-4xl font-bold">{sectionTitle}</h3>
         <Button variant="link" asChild>
