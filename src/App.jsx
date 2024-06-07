@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Root from './pages/Root';
 import HomePage from './pages/HomePage';
+import MovieDetailsPage from './pages/MovieDetailsPage';
 import ErrorPage from './pages/ErrorPage';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
@@ -17,6 +18,10 @@ const App = () => {
         {
           path: '',
           element: <HomePage />,
+        },
+        {
+          path: 'movie',
+          element: <MovieDetailsPage />,
         },
         {
           path: 'signup',
