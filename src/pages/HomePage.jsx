@@ -1,56 +1,90 @@
-import React from "react";
-import MovieCard from "./MovieCard";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+import { Button } from '@/components/ui/Button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormRootError,
+} from '@/components/ui/Form';
+import { Input } from '@/components/ui/Input';
+import BackgroundMesh from '@/components/ui/BackgroundMesh';
+import { LoaderCircleIcon, SearchIcon } from 'lucide-react';
+
+const FormSchema = z.object({
+  search: z.string(),
+});
 
 const HomePage = () => {
+  const form = useForm({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      search: '',
+    },
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = form;
+
+  async function onSubmit(data) {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.error('Error during fetching movies:', error);
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-yellow-200 py-4 text-center">
-        <div className="flex justify-center items-center mb-4">
-          <div className="bg-white rounded-full p-2 shadow-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-gray-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+    <>
+      <section className="py-20 grid grid-flow-row gap-6 place-items-center w-full">
+        <div className="text-center relative">
+          <BackgroundMesh />
+          <h1 className="text-4xl md:text-6xl font-bold">Search a movie</h1>
+        </div>
+        <Form {...form}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="max-w-[600px] w-full grid grid-cols-[1fr_auto] content-center items-center gap-2"
+          >
+            <FormField
+              control={control}
+              name="search"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="sr-only">Search a movie</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Search a movie..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              size="icon"
+              className="translate-y-1"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-5.2-5.2m1.4 5.2l-5.2-5.2M12 14a5 5 0 100-10 5 5 0 000 10z"
-              />
-            </svg>
-          </div>
-          <input
-            type="search"
-            className="w-80 h-10 rounded-md pl-4 mx-2"
-            placeholder="Search movies..."
-          />
-          <button className="bg-yellow-300 text-gray-800 px-4 py-2 rounded-md shadow-md hover:bg-yellow-400">
-            Search
-          </button>
-        </div>
-        <div className="flex justify-center">
-          <button className="mx-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-md shadow-md hover:bg-gray-300">
-            Country
-          </button>
-          <button className="mx-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-md shadow-md hover:bg-gray-300">
-            Release Year
-          </button>
-        </div>
-      </div>
-      <div className="container mx-auto py-8 px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {/* movie data */}
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          {/* Example cards */}
-        </div>
-      </div>
-    </div>
+              {isSubmitting ? (
+                <LoaderCircleIcon className="animate-spin" />
+              ) : (
+                <SearchIcon />
+              )}
+            </Button>
+          </form>
+          <FormRootError />
+        </Form>
+      </section>
+    </>
   );
 };
 

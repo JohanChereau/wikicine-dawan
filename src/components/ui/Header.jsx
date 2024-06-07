@@ -1,17 +1,30 @@
-import React from 'react';
+import { useAuth } from '@/services/providers/auth-provider';
+import Avatar from '../Avatar';
+import { Button } from './Button';
+import { EnterIcon } from '@radix-ui/react-icons';
+import { Link } from 'react-router-dom';
+import { Skeleton } from './Skeleton';
 
 const Header = () => {
+  const { session, profile, isLoading } = useAuth();
+
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-100 shadow-md">
-      <div className="flex items-center">
-        <img
-          src="https://via.placeholder.com/40"
-          alt="User"
-          className="w-10 h-10 rounded-full"
-        />
-      </div>
-      <div className="text-xl font-bold text-gray-700">
-        wikicine
+    <header className="container flex justify-between items-center p-4">
+      <Link to="/">
+        <span className="text-2xl font-bold text-foreground">Wikiciné</span>
+      </Link>
+
+      <div>
+        {isLoading && <Skeleton className="w-12 aspect-square rounded-full" />}
+        {!isLoading && session && <Avatar userProfile={profile} />}
+        {!isLoading && !session && (
+          <Button variant="outline" asChild>
+            <Link to="/signin">
+              <EnterIcon />
+              <span>Sign In</span>
+            </Link>
+          </Button>
+        )}
       </div>
     </header>
   );
