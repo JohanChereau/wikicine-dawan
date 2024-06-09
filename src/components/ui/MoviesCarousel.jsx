@@ -33,15 +33,15 @@ const MoviesCarousel = ({
           {movies?.map((movie) => {
             return (
               <CarouselItem
-                key={movie.id}
+                key={movie?.id}
                 className="aspect-[2/3] basis-3/4 lg:basis-1/6 grid content-between max-w-44 md:max-w-52"
               >
                 <Card
-                  movieId={movie.id}
-                  moviePoster={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                  movieTitle={truncateText(movie.title, 32, '...')}
-                  releaseDate={movie.release_date}
-                  rating={Number(movie.vote_average.toFixed(1))}
+                  movieId={movie?.id}
+                  moviePoster={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+                  movieTitle={truncateText(movie?.title, 32, '...')}
+                  releaseDate={movie?.release_date}
+                  rating={Number(movie?.vote_average.toFixed(1))}
                 />
               </CarouselItem>
             );

@@ -29,14 +29,15 @@ const MovieSearchResults = ({ query }) => {
         {searchResults?.results?.map((movie) => (
           <li key={movie.id} className="grid">
             <Card
+              movieId={movie?.id}
               moviePoster={
                 movie?.poster_path
                   ? `https://image.tmdb.org/t/p/original/${movie?.poster_path}`
                   : 'https://placehold.co/400x600/FACC15/black?text=Wikicin%C3%A9'
               }
-              movieTitle={truncateText(movie.title, 32, '...')}
-              releaseDate={movie.release_date}
-              rating={Number(movie.vote_average.toFixed(1))}
+              movieTitle={truncateText(movie?.title, 32, '...')}
+              releaseDate={movie?.release_date}
+              rating={Number(movie?.vote_average.toFixed(1))}
             />
           </li>
         ))}

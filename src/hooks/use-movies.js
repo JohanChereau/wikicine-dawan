@@ -7,7 +7,13 @@ const defaultParameters = {
   refetchOnMount: false,
 };
 
-const { fetchTrendingMovies, fetchPopularMovies, fetchSearchMovies } = moviesApi();
+const {
+  fetchTrendingMovies,
+  fetchPopularMovies,
+  fetchSearchMovies,
+  fetchMovieDetails,
+  fetchMovieRecommendations,
+} = moviesApi();
 
 const useTrendingMovies = (time = 'week', lang = 'en-US') => {
   return useQuery({
@@ -59,10 +65,28 @@ const useSearchMovies = (
   });
 };
 
+const useMovieDetails = (movieId, lang = 'en-US', appendToResponse = '') => {
+  return useQuery({
+    queryKey: ['movieDetails', movieId, lang, appendToResponse],
+    queryFn: () => fetchMovieDetails(movieId, lang, appendToResponse),
+    ...defaultParameters,
+  });
+};
+
+const useMovieRecommendations = (movieId, lang = 'en-US', page = 1) => {
+  return useQuery({
+    queryKey: ['movieRecommendations', movieId, lang, page],
+    queryFn: () => fetchMovieRecommendations(movieId, lang, page),
+    ...defaultParameters,
+  });
+};
+
 export const useMovies = () => {
   return {
     useTrendingMovies,
     usePopularMovies,
     useSearchMovies,
+    useMovieDetails,
+    useMovieRecommendations,
   };
 };
