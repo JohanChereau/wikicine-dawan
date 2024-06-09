@@ -18,7 +18,7 @@ const MovieSearchResults = ({ query }) => {
   }
 
   if (!searchResults || searchResults.results.length === 0) {
-    return <p>No results found.</p>;
+    return <p className="font-bold text-3xl">No results found.</p>;
   }
 
   return (
