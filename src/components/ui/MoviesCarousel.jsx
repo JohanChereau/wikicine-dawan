@@ -16,7 +16,7 @@ const MoviesCarousel = ({
   action = 'View all',
 }) => {
   return (
-    <div className="max-w-full grid gap-12 sm:px-8">
+    <div className="max-w-full grid gap-4 md:gap-12 sm:px-8">
       <div className="flex justify-between items-center">
         <h3 className="text-2xl md:text-4xl font-bold">{sectionTitle}</h3>
         <Button variant="link" asChild>
@@ -34,9 +34,10 @@ const MoviesCarousel = ({
             return (
               <CarouselItem
                 key={movie.id}
-                className="aspect-[2/3] basis-3/4 lg:basis-1/6 select-none cursor-pointer grid max-w-52"
+                className="aspect-[2/3] basis-3/4 lg:basis-1/6 grid content-between max-w-44 md:max-w-52"
               >
                 <Card
+                  movieId={movie.id}
                   moviePoster={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                   movieTitle={truncateText(movie.title, 32, '...')}
                   releaseDate={movie.release_date}
@@ -46,8 +47,8 @@ const MoviesCarousel = ({
             );
           })}
         </CarouselContent>
-        <CarouselPrevious className="hidden sm:block" />
-        <CarouselNext className="hidden sm:block" />
+        <CarouselPrevious className="hidden sm:grid place-items-center place-content-center" />
+        <CarouselNext className="hidden sm:grid place-items-center place-content-center" />
       </Carousel>
     </div>
   );
