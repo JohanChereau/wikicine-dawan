@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from './Carousel';
-import Card from '../Card';
+import MoviePreviewCard from './MoviePreviewCard';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import { truncateText } from '@/utils/string/truncate';
@@ -36,7 +36,7 @@ const MoviesCarousel = ({
                 key={movie?.id}
                 className="aspect-[2/3] basis-3/4 lg:basis-1/6 grid content-between max-w-44 md:max-w-52"
               >
-                <Card
+                <MoviePreviewCard
                   movieId={movie?.id}
                   moviePoster={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
                   movieTitle={truncateText(movie?.title, 32, '...')}

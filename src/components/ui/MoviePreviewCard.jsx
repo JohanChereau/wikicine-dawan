@@ -2,7 +2,13 @@ import { FaStar } from 'react-icons/fa';
 import Badge from './Badge';
 import { Link } from 'react-router-dom';
 
-const Card = ({ movieId, moviePoster, movieTitle, releaseDate, rating }) => {
+const MoviePreviewCard = ({
+  movieId,
+  moviePoster,
+  movieTitle,
+  releaseDate,
+  rating,
+}) => {
   return (
     <Link
       to={`/movie/details/${movieId}`}
@@ -16,13 +22,13 @@ const Card = ({ movieId, moviePoster, movieTitle, releaseDate, rating }) => {
         />
       </div>
 
-      <h4 className="text-xl font-bold">{movieTitle}</h4>
+      <h4 className="text-base sm:text-xl font-bold">{movieTitle}</h4>
 
-      <p className="text-muted-foreground text-base">{releaseDate}</p>
+      <p className="text-muted-foreground text-sm sm:text-base">{releaseDate}</p>
 
       <Badge rating={rating} Icon={FaStar} iconClassName="text-primary" />
     </Link>
   );
 };
 
-export default Card;
+export default MoviePreviewCard;

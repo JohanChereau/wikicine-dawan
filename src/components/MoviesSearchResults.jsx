@@ -1,6 +1,6 @@
 import { useMovies } from '@/hooks/use-movies';
 import { Skeleton } from './ui/Skeleton';
-import Card from './Card';
+import MoviePreviewCard from './ui/MoviePreviewCard';
 import { truncateText } from '@/utils/string/truncate';
 
 const MovieSearchResults = ({ query }) => {
@@ -28,7 +28,7 @@ const MovieSearchResults = ({ query }) => {
       <ul className="grid grid-cols-auto-fit-200 gap-6">
         {searchResults?.results?.map((movie) => (
           <li key={movie.id} className="grid">
-            <Card
+            <MoviePreviewCard
               movieId={movie?.id}
               moviePoster={
                 movie?.poster_path
