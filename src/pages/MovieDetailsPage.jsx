@@ -1,32 +1,37 @@
 import MovieDetailsContent from '@/components/ui/MovieDetailsContent';
 import MovieHeader from '@/components/ui/MovieHeader';
-import MovieTabs from '@/components/ui/MovieTabs';
+import MovieTabs from '@/components/movie-tabs/MovieTabs';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { useMovies } from '@/hooks/use-movies';
+import { ScrollRestoration, useParams } from 'react-router-dom';
 
 const MovieDetailsPage = () => {
+  const { movieId } = useParams();
+
+  const { useMovieDetails } = useMovies();
+  const { data, isLoading } = useMovieDetails(movieId);
+
+  if (isLoading) {
+    return (
+      <section className="grid gap-8 max-w-[1000px] mx-auto">
+        <Skeleton className="w-full h-40" />
+        <Skeleton className="w-full h-40" />
+        <Skeleton className="w-full h-40" />
+        <Skeleton className="w-full h-40" />
+      </section>
+    );
+  }
+
   return (
-    <div className="">
-      <section className="grid pt-36 bg-[url(https://www.actusf.com/files/new_images/actualit%C3%A9s/2024%20Semestre%201/Mad%20Max%20Furiosa.jpg)] bg-no-repeat bg-center bg-cover">
-        <MovieHeader
-          movieTitle={'Furiosa'}
-          dateProd={'2024 - Warner Bros'}
-          rate={'4/5'}
-        />
-      </section>
+    <article className="grid grid-flow-row gap-8 max-w-[1000px] mx-auto">
+      <MovieHeader movieData={data} />
 
-      <section>
-        <div>
-          <MovieDetailsContent
-            description={
-              'As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus. Sweeping through the Wasteland they come across the Citadel presided over... Show More'
-            }
-          />
-        </div>
-      </section>
+      <MovieDetailsContent description={data?.overview} />
 
-      <section>
-        <MovieTabs />
-      </section>
-    </div>
+      <MovieTabs movieId={data?.id} />
+
+      <ScrollRestoration />
+    </article>
   );
 };
 

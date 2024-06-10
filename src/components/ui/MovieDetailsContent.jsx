@@ -1,11 +1,11 @@
 const MovieDetailsContent = ({ description }) => {
   return (
-    <div className="grid mt-8 gap-3">
+    <section className="grid mt-8 gap-3">
       <span>
-        <h1 className="text-xl font-bold text-foreground">Description</h1>
+        <h3 className="text-2xl font-bold text-foreground">Description</h3>
       </span>
-      {description}
-    </div>
+      <p className="text-muted-foreground">{description}</p>
+    </section>
   );
 };
 

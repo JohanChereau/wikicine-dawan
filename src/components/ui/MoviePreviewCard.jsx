@@ -1,4 +1,3 @@
-import { FaStar } from 'react-icons/fa';
 import Badge from './Badge';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +8,8 @@ const MoviePreviewCard = ({
   releaseDate,
   rating,
 }) => {
+  const scaledRating = ((rating / 10) * 5).toFixed(1);
+
   return (
     <Link
       to={`/movie/details/${movieId}`}
@@ -26,7 +27,7 @@ const MoviePreviewCard = ({
 
       <p className="text-muted-foreground text-sm sm:text-base">{releaseDate}</p>
 
-      <Badge rating={rating} Icon={FaStar} iconClassName="text-primary" />
+      <Badge text={scaledRating} iconClassName="text-primary" />
     </Link>
   );
 };

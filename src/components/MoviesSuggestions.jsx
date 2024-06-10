@@ -9,22 +9,22 @@ const MoviesSuggestions = () => {
   const { data: popularMovies, isLoading: popularLoading } = usePopularMovies();
 
   return (
-    <section className="grid grid-rows-2 gap-16 lg:gap-24">
-      <div>
+    <article className="grid grid-rows-2 gap-16 lg:gap-24">
+      <section>
         {trendingLoading ? (
           <Skeleton className="w-full h-40" />
         ) : (
           <MoviesCarousel movies={trendingMovies?.results} sectionTitle="Trending" />
         )}
-      </div>
-      <div>
+      </section>
+      <section>
         {popularLoading ? (
           <Skeleton className="w-full h-40" />
         ) : (
           <MoviesCarousel movies={popularMovies?.results} sectionTitle="Popular" />
         )}
-      </div>
-    </section>
+      </section>
+    </article>
   );
 };
 

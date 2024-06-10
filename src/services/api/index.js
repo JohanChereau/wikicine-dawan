@@ -2,7 +2,8 @@ import { fetchTrendingMovies } from './actions/trendingMovies.js';
 import { fetchPopularMovies } from './actions/popularMovies.js';
 import { fetchSearchMovies } from './actions/searchMovies.js';
 import { fetchMovieDetails } from './actions/movieDetails.js';
-import { fetchMovieRecommendations } from './actions/movieRecommendations.js'; // Nouvelle importation
+import { fetchMovieRecommendations } from './actions/movieRecommendations.js';
+import { fetchMovieCredits } from './actions/movieCredits.js';
 
 export const moviesApi = () => {
   const MOVIES_API_SECRET = import.meta.env.VITE_TMDB_SECRET;
@@ -34,6 +35,8 @@ export const moviesApi = () => {
     fetchMovieDetails: (movieId, lang, appendToResponse) =>
       fetchMovieDetails(MOVIES_API_SECRET, movieId, lang, appendToResponse),
     fetchMovieRecommendations: (movieId, lang, page) =>
-      fetchMovieRecommendations(MOVIES_API_SECRET, movieId, lang, page), // Nouvelle fonction
+      fetchMovieRecommendations(MOVIES_API_SECRET, movieId, lang, page),
+    fetchMovieCredits: (movieId, lang) =>
+      fetchMovieCredits(MOVIES_API_SECRET, movieId, lang),
   };
 };

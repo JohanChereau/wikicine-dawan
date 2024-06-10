@@ -9,7 +9,7 @@ const Header = () => {
   const { session, profile, isLoading } = useAuth();
 
   return (
-    <header className="container flex justify-between items-center p-4">
+    <header className="container flex justify-between items-center py-4">
       <h1>
         <Link to="/" className="text-2xl font-bold text-foreground">
           Wikiciné

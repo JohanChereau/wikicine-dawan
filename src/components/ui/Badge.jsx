@@ -1,9 +1,19 @@
-const Badge = ({ rating, Icon, iconClassName }) => {
+import { FaStar } from 'react-icons/fa';
+
+const Badge = ({
+  text,
+  Icon = FaStar,
+  iconClassName = '',
+  displayIcon = true,
+  textClassName = '',
+}) => {
   return (
-    <div className="w-fit h-fit border border-muted-foreground rounded-md p-1 bg-muted self-end">
+    <div className="w-fit h-fit border border-muted-foreground dark:border-muted rounded-md p-1 sm:p-2 self-end">
       <div className="inline-flex gap-2 items-center justify-evenly">
-        <Icon className={iconClassName} />
-        <span className="tracking-wider">{rating}</span>
+        {displayIcon && <Icon className={`${iconClassName}`} />}
+        <p className={`tracking-wider text-foreground font-light ${textClassName}`}>
+          {text}
+        </p>
       </div>
     </div>
   );

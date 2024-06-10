@@ -13,6 +13,7 @@ const {
   fetchSearchMovies,
   fetchMovieDetails,
   fetchMovieRecommendations,
+  fetchMovieCredits,
 } = moviesApi();
 
 const useTrendingMovies = (time = 'week', lang = 'en-US') => {
@@ -73,6 +74,14 @@ const useMovieDetails = (movieId, lang = 'en-US', appendToResponse = '') => {
   });
 };
 
+const useMovieCredits = (movieId, lang = 'en-US') => {
+  return useQuery({
+    queryKey: ['movieCredits', movieId, lang],
+    queryFn: () => fetchMovieCredits(movieId, lang),
+    ...defaultParameters,
+  });
+};
+
 const useMovieRecommendations = (movieId, lang = 'en-US', page = 1) => {
   return useQuery({
     queryKey: ['movieRecommendations', movieId, lang, page],
@@ -88,5 +97,6 @@ export const useMovies = () => {
     useSearchMovies,
     useMovieDetails,
     useMovieRecommendations,
+    useMovieCredits,
   };
 };
