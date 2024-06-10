@@ -1,5 +1,5 @@
 import { MoonIcon } from '@radix-ui/react-icons'
-import Badge from './Badge'
+import Badge from '../Badge'
 
 const Card = ({moviePoster, movieTitle, releaseDate}) => {
 
