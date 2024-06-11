@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs';
-import MovieCast from './MovieCast';
+import MovieCastTab from './MovieCastTab';
+import MovieReviewsTab from './MovieReviewsTab';
 
 const MovieTabs = ({ movieId }) => {
   return (
@@ -11,10 +12,12 @@ const MovieTabs = ({ movieId }) => {
           <TabsTrigger value="cast">Cast</TabsTrigger>
           <TabsTrigger value="anecdotes">Anecdotes</TabsTrigger>
         </TabsList>
-        <TabsContent value="reviews">Reviews</TabsContent>
+        <TabsContent value="reviews">
+          <MovieReviewsTab movieId={movieId} />
+        </TabsContent>
         <TabsContent value="critics">Critics</TabsContent>
         <TabsContent value="cast">
-          <MovieCast movieId={movieId} />
+          <MovieCastTab movieId={movieId} />
         </TabsContent>
         <TabsContent value="anecdotes">Anecdotes</TabsContent>
       </Tabs>

@@ -36,7 +36,7 @@ const Avatar = ({ userProfile }) => {
           <img
             src={userAvatar}
             alt="User profile picture"
-            className="aspect-square rounded-full object-cover max-w-12 cursor-pointer border border-muted-foreground"
+            className="aspect-square rounded-full object-cover max-w-12 cursor-pointer border border-muted"
           />
         </Button>
       </DropdownMenuTrigger>

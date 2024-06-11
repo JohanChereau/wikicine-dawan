@@ -1,9 +1,9 @@
 import { useAuth } from '@/services/providers/auth-provider';
 import Avatar from '../Avatar';
-import { Button } from './Button';
+import { Button } from '../ui/Button';
 import { EnterIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
-import { Skeleton } from './Skeleton';
+import { Skeleton } from '../ui/Skeleton';
 
 const Header = () => {
   const { session, profile, isLoading } = useAuth();
