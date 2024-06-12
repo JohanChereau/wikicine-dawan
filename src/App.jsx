@@ -21,7 +21,12 @@ const App = () => {
         },
         {
           path: 'movie',
-          element: <MovieDetailsPage />,
+          children: [
+            {
+              path: 'details/:movieId',
+              element: <MovieDetailsPage />,
+            },
+          ],
         },
         {
           path: 'signup',

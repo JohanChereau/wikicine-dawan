@@ -1,3 +1,4 @@
+import Footer from '@/components/ui/Footer';
 import Header from '@/components/ui/Header';
 import { Outlet } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const Root = () => {
         <Outlet />
       </main>
 
-      <footer className="container">Default Footer</footer>
+      <Footer />
     </div>
   );
 };

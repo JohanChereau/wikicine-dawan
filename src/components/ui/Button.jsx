@@ -19,6 +19,8 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         linkMuted: 'text-muted-foreground underline-offset-4 hover:underline',
         icon: 'w-fit rounded-full aspect-square',
+        iconDark:
+          'rounded-full w-12 backdrop-brightness-50 border border-muted-foreground dark:border-muted hover:backdrop-brightness-75',
       },
       size: {
         default: 'h-10 px-4 py-2',
