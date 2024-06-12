@@ -36,7 +36,10 @@ const MovieReviewsTab = ({ movieId }) => {
 
   useEffect(() => {
     if (reviews) {
-      const filtered = filterReviews(reviews, sortBy);
+      const userReviews = reviews.filter(
+        (review) => review?.user_profiles?.role !== 'contributor'
+      );
+      const filtered = filterReviews(userReviews, sortBy);
       setFilteredReviews(filtered);
 
       if (profile?.user_id) {
@@ -95,7 +98,7 @@ const MovieReviewsTab = ({ movieId }) => {
                       'https://placehold.co/300x300/FACC15/black?text=Wikicin%C3%A9'
                     }
                     alt={`${review?.user_profiles?.username}'s avatar`}
-                    className="aspect-square object-cover rounded-full w-8 md:w-12 hover:border hover:border-card-foreground"
+                    className="aspect-square object-cover rounded-full w-8 md:w-12 cursor-pointer"
                   />
                   <div className="inline-flex items-center gap-2">
                     <p className="font-semibold text-base md:text-xl hover:underline hover:underline-offset-4 hover:decoration-accent-foreground">{`@${
