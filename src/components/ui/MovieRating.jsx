@@ -6,9 +6,10 @@ const MovieRating = ({
   className = '',
   color = 'text-primary',
   starCount = 5,
+  showVoteCount = true,
+  ratingScale = 10,
 }) => {
-  const scaledRating = (rating / 10) * starCount;
-
+  const scaledRating = (rating / ratingScale) * starCount;
   const fullStars = Math.round(scaledRating);
   const emptyStars = starCount - fullStars;
 
@@ -23,7 +24,9 @@ const MovieRating = ({
         ))}
       </div>
       <p className="text-base text-muted-foreground">
-        {(rating / 2).toFixed(1)} / 5 ({voteCount})
+        {scaledRating.toFixed(1)} / {starCount}
+        {showVoteCount && ` (${voteCount})`}{' '}
+        {/* Affichage conditionnel du voteCount */}
       </p>
     </div>
   );

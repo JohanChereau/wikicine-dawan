@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/Card';
 import { useMovies } from '@/hooks/use-movies';
 
-const MovieCast = ({ movieId }) => {
+const MovieCastTab = ({ movieId }) => {
   const { useMovieCredits } = useMovies();
   const { data, isLoading } = useMovieCredits(movieId);
 
@@ -66,4 +66,4 @@ const MovieCast = ({ movieId }) => {
   );
 };
 
-export default MovieCast;
+export default MovieCastTab;

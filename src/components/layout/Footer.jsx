@@ -83,15 +83,16 @@ const Footer = () => {
           Made with <span className="text-yellow-500">&hearts;</span> at Dawan
         </p>
         <p className="text-muted-foreground">
-          All information and images of movies are retrieved from{' '}
+          This product uses the TMDB API but is not endorsed or certified by{' '}
           <a
             href="https://www.themoviedb.org/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:underline font-bold"
           >
-            The Movie DB.
+            TMDB
           </a>
+          .
         </p>
         <div className="inline-flex items-center gap-4 mx-auto lg:mx-0">
           <img
