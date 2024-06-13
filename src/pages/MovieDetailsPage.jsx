@@ -28,7 +28,7 @@ const MovieDetailsPage = () => {
 
       <MovieDetailsContent description={data?.overview} />
 
-      <MovieTabs movieId={data?.id} />
+      <MovieTabs movieId={data?.id} movieTitle={data?.title} />
 
       <ScrollRestoration />
     </article>

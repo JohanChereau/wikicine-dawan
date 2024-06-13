@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs';
 import MovieCastTab from './MovieCastTab';
 import MovieReviewsTab from './MovieReviewsTab';
 
-const MovieTabs = ({ movieId }) => {
+const MovieTabs = ({ movieId, movieTitle }) => {
   return (
     <section>
       <Tabs defaultValue="reviews" className="basis-full">
@@ -13,7 +13,7 @@ const MovieTabs = ({ movieId }) => {
           <TabsTrigger value="anecdotes">Anecdotes</TabsTrigger>
         </TabsList>
         <TabsContent value="reviews">
-          <MovieReviewsTab movieId={movieId} />
+          <MovieReviewsTab movieId={movieId} movieTitle={movieTitle} />
         </TabsContent>
         <TabsContent value="critics">Critics</TabsContent>
         <TabsContent value="cast">
