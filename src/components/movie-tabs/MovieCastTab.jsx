@@ -17,21 +17,17 @@ const MovieCastTab = ({ movieId }) => {
 
   if (isLoading) {
     return (
-      <section className="grid grid-cols-auto-fit-200 gap-4">
+      <ul className="grid grid-cols-auto-fit-200 gap-4">
         <Skeleton className="w-full aspect-[2/3]" />
         <Skeleton className="w-full aspect-[2/3]" />
         <Skeleton className="w-full aspect-[2/3]" />
         <Skeleton className="w-full aspect-[2/3]" />
-      </section>
+      </ul>
     );
   }
 
   if (!isLoading && !data?.cast?.length) {
-    return (
-      <section>
-        <p>No casting found for this movie.</p>
-      </section>
-    );
+    return <p>No casting found for this movie.</p>;
   }
 
   return (

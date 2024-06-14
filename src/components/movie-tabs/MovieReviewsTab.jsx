@@ -56,7 +56,7 @@ const MovieReviewsTab = ({ movieId, movieTitle }) => {
   if (isError) return <p>Error fetching reviews.</p>;
 
   return (
-    <section>
+    <>
       <div className="grid grid-cols-2 gap-4 mt-6 mb-8">
         <Select
           value={sortBy}
@@ -89,7 +89,7 @@ const MovieReviewsTab = ({ movieId, movieTitle }) => {
           </li>
         ))}
       </ul>
-    </section>
+    </>
   );
 };
 

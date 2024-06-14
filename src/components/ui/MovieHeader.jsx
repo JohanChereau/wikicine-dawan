@@ -28,7 +28,7 @@ const MovieHeader = ({ movieData }) => {
     : '';
 
   return (
-    <section
+    <header
       className={`grid grid-rows-[auto_3fr] gap-2 min-h-64 text-center bg-no-repeat bg-top bg-cover rounded-md`}
       style={{ backgroundImage: `url(${backdropUrl})` }}
     >
@@ -71,7 +71,7 @@ const MovieHeader = ({ movieData }) => {
           )}
         </div>
       </div>
-    </section>
+    </header>
   );
 };
 
