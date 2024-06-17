@@ -12,7 +12,7 @@ const Header = () => {
     <header className="container flex justify-between items-center py-4">
       <h1>
         <Link to="/" className="text-2xl font-bold text-foreground">
-          Wikiciné
+          Wiki<span className="text-primary">ciné</span>
         </Link>
       </h1>
 
