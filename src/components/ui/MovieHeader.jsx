@@ -39,7 +39,7 @@ const MovieHeader = ({ movieData }) => {
           </Link>
         </Button>
         <Button className="shadow-lg" asChild>
-          <Link to={`/movie/wiki/id`}>Wiki</Link>
+          <Link to={`/movie/wiki/${movieData?.id}`}>Wiki</Link>
         </Button>
       </div>
 

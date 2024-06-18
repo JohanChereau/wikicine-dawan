@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SignOutPage from './pages/SignOutPage';
 import CreateWikiPage from './pages/CreateWikiPage';
 import { ROLES } from './utils/icons/roles';
+import WikiPage from './pages/WikiPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const App = () => {
             },
             {
               path: 'wiki/:movieId',
-              element: null,
+              element: <WikiPage />,
             },
           ],
         },

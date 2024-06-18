@@ -9,7 +9,7 @@ export function useWikiMovie(movieId) {
       .from('wiki_movies')
       .select('*')
       .eq('movie_id', movieId)
-      .single();
+      .maybeSingle();
 
     if (fetchError) {
       throw new Error('An error occurred while fetching the wiki movie.');
