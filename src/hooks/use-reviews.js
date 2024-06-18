@@ -1,7 +1,9 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/services/supabase/supabaseClient.js';
 
 export function useReviews(movieId) {
+  const queryClient = useQueryClient();
+
   const fetchReviewsWithProfiles = async () => {
     const { data: reviews, error: reviewsError } = await supabase
       .from('reviews')
@@ -33,35 +35,13 @@ export function useReviews(movieId) {
 
   const addReviewMutation = useMutation({
     mutationFn: addReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['reviews', movieId]);
+    },
   });
 
   return {
     getReviews,
     addReview: addReviewMutation.mutateAsync,
-  };
-}
-
-export function useUserReviews(userId) {
-  const fetchUserReviews = async () => {
-    const { data: reviews, error: reviewsError } = await supabase
-      .from('reviews')
-      .select('*, user_profiles(username, role, avatar)')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false });
-
-    if (reviewsError) {
-      throw new Error('An error occurred while fetching user reviews.');
-    }
-
-    return reviews ?? [];
-  };
-
-  const getUserReviews = useQuery({
-    queryKey: ['userReviews', userId],
-    queryFn: fetchUserReviews,
-  });
-
-  return {
-    getUserReviews,
   };
 }

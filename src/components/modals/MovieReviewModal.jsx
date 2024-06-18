@@ -63,7 +63,7 @@ const MovieReviewModal = ({
     formState: { isSubmitting, isSubmitSuccessful },
   } = form;
 
-  const { addReview, getReviews } = useReviews(movieId);
+  const { addReview } = useReviews(movieId);
   const { session } = useAuth();
 
   const onSubmit = async (data) => {
@@ -74,7 +74,6 @@ const MovieReviewModal = ({
         movie_id: movieId,
       });
       reset();
-      getReviews.refetch();
     } catch (error) {
       setError('root', {
         message: error.message || 'An unknown error occurred',

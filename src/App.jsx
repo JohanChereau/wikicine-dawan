@@ -69,10 +69,14 @@ const App = () => {
                   allowedRoles={Object.keys(ROLES).filter(
                     (role) => role === 'admin' || role === 'contributor'
                   )}
-                >
-                  <CreateWikiPage />
-                </ProtectedRoute>
+                />
               ),
+              children: [
+                {
+                  index: true,
+                  element: <CreateWikiPage />,
+                },
+              ],
             },
             {
               path: 'signout',
