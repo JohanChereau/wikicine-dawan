@@ -40,7 +40,13 @@ const FormSchema = z.object({
     .max(10000, { message: 'Comment must not exceed 10000 characters' }),
 });
 
-const MovieReviewModal = ({ triggerDisabled, movieTitle, movieId }) => {
+const MovieReviewModal = ({
+  triggerDisabled,
+  movieTitle,
+  movieId,
+  role,
+  reviewExists,
+}) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -81,12 +87,27 @@ const MovieReviewModal = ({ triggerDisabled, movieTitle, movieId }) => {
     return null;
   }
 
+  const shouldDisableButton = triggerDisabled || isSubmitting || isSubmitSuccessful;
+
+  let buttonMessage = 'Add a review';
+  if (reviewExists) {
+    buttonMessage = 'Review already posted';
+  } else if (role === 'contributor') {
+    buttonMessage = 'Add a contributor review';
+  }
+
+  const shouldShowButton =
+    (role === 'user' && session.user?.role !== 'contributor' && !reviewExists) ||
+    (role === 'contributor' &&
+      session.user?.role === 'contributor' &&
+      !reviewExists);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={triggerDisabled || !session}>
-          {triggerDisabled ? 'Review already posted' : 'Add a review'}
-        </Button>
+        {shouldShowButton && (
+          <Button disabled={shouldDisableButton}>{buttonMessage}</Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Review {movieTitle}</DialogTitle>
@@ -145,11 +166,7 @@ const MovieReviewModal = ({ triggerDisabled, movieTitle, movieId }) => {
               )}
             />
 
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isSubmitting || isSubmitSuccessful}
-            >
+            <Button type="submit" className="w-full" disabled={shouldDisableButton}>
               {isSubmitting ? (
                 <div className="inline-flex items-center gap-2">
                   <LoaderCircleIcon className="animate-spin" />

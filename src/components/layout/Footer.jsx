@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
+import { useTheme } from '@/services/providers/theme-provider';
 
 const Footer = () => {
+  const { theme } = useTheme();
+
   return (
     <footer className="container text-foreground py-8 mt-8 grid grid-flow-row gap-6">
       <hr className="border-muted" />
 
       <div className="flex items-center justify-center mb-4">
-        <h5 className="text-3xl font-bold md:mb-6">Wikiciné</h5>
+        <h5 className="text-3xl font-bold md:mb-6">
+          Wiki<span className="text-primary">ciné</span>
+        </h5>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
@@ -95,6 +100,19 @@ const Footer = () => {
           .
         </p>
         <div className="inline-flex items-center gap-4 mx-auto lg:mx-0">
+          {theme === 'dark' ? (
+            <img
+              className="min-w-12 max-w-16 w-full aspect-square object-contain"
+              src="/wikicine_logo.svg"
+              alt="Wikiciné logo"
+            />
+          ) : (
+            <img
+              className="min-w-12 max-w-16 w-full aspect-square object-contain"
+              src="/wikicine_logo_dark.svg"
+              alt="Wikiciné logo"
+            />
+          )}
           <img
             className="min-w-9 max-w-12 w-full aspect-square object-contain"
             src="https://www.dawan.fr/media/image/dawan-logo.svg"
