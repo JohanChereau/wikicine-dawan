@@ -10,14 +10,15 @@ export const AuthProvider = ({ children }) => {
   });
   const [channel, setChannel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSession = async () => {
+      setIsLoading(true);
       const {
         data: { session },
       } = await supabase.auth.getSession();
       setUserInfo((prevUserInfo) => ({ ...prevUserInfo, session }));
-      setIsLoading(false);
     };
 
     fetchSession();
@@ -42,7 +43,6 @@ export const AuthProvider = ({ children }) => {
           channel.unsubscribe();
         }
         setChannel(newChannel);
-        setIsLoading(false);
       } else if (!userInfo.session?.user) {
         channel?.unsubscribe();
         setChannel(null);
@@ -83,11 +83,14 @@ export const AuthProvider = ({ children }) => {
         .subscribe();
     } catch (error) {
       console.error('Error fetching user profile:', error);
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
-    <AuthContext.Provider value={{ ...userInfo, isLoading }}>
+    <AuthContext.Provider value={{ ...userInfo, isLoading, error }}>
       {children}
     </AuthContext.Provider>
   );

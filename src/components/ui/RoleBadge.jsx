@@ -4,10 +4,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { BADGES } from '@/utils/icons/Badges';
+import { ROLES } from '@/utils/icons/roles';
 
 const RoleBadge = ({ role }) => {
-  const badgeData = BADGES[role];
+  const badgeData = ROLES[role];
 
   if (!badgeData) return null;
 
