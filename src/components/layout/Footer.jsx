@@ -10,7 +10,9 @@ const Footer = () => {
       <hr className="border-muted" />
 
       <div className="flex items-center justify-center mb-4">
-        <h5 className="text-3xl font-bold md:mb-6">Wikiciné</h5>
+        <h5 className="text-3xl font-bold md:mb-6">
+          Wiki<span className="text-primary">ciné</span>
+        </h5>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">

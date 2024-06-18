@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useReviews } from '@/hooks/use-reviews';
-import { useAuth } from '@/services/providers/auth-provider';
 import {
   Select,
   SelectContent,
@@ -12,6 +10,7 @@ import {
 } from '@/components/ui/Select';
 import MovieComment from '../ui/MovieComment';
 import MovieReviewModal from '../modals/MovieReviewModal';
+import { Skeleton } from '../ui/Skeleton';
 
 const filterReviews = (reviews, sortBy) => {
   return [...reviews].sort((a, b) => {
@@ -21,42 +20,41 @@ const filterReviews = (reviews, sortBy) => {
   });
 };
 
-const MovieReviewsTab = ({ movieId, movieTitle }) => {
-  const { getReviews } = useReviews(movieId);
-  const { data: reviews, isLoading, isError } = getReviews;
-  const { profile } = useAuth();
-
+const MovieReviewsTab = ({
+  reviews,
+  movieId,
+  movieTitle,
+  role,
+  reviewExists,
+  isLoading,
+  isError,
+}) => {
   const [sortBy, setSortBy] = useState('latest');
   const [filteredReviews, setFilteredReviews] = useState([]);
-  const [hasReview, setHasReview] = useState(false);
 
   useEffect(() => {
     if (reviews) {
-      const userReviews = reviews.filter(
-        (review) => review?.user_profiles?.role !== 'contributor'
-      );
-      const filtered = filterReviews(userReviews, sortBy);
+      const filtered = filterReviews(reviews, sortBy);
       setFilteredReviews(filtered);
-
-      if (profile?.user_id) {
-        const userReview = reviews.find(
-          (review) =>
-            review.user_id === profile?.user_id && review.movie_id === movieId
-        );
-        setHasReview(!!userReview);
-      }
     }
-  }, [reviews, sortBy, profile?.user_id, movieId]);
+  }, [reviews, sortBy]);
 
   const handleSortChange = (value) => {
     setSortBy(value);
   };
 
-  if (isLoading) return <p>Loading reviews...</p>;
+  if (isLoading)
+    return (
+      <section className="grid grid-flow-row gap-4">
+        <Skeleton className="w-full h-40" />
+        <Skeleton className="w-full h-40" />
+        <Skeleton className="w-full h-40" />
+      </section>
+    );
   if (isError) return <p>Error fetching reviews.</p>;
 
   return (
-    <>
+    <section>
       <div className="grid grid-cols-2 gap-4 mt-6 mb-8">
         <Select
           value={sortBy}
@@ -76,9 +74,11 @@ const MovieReviewsTab = ({ movieId, movieTitle }) => {
         </Select>
 
         <MovieReviewModal
-          triggerDisabled={hasReview}
+          triggerDisabled={reviewExists}
           movieTitle={movieTitle}
           movieId={movieId}
+          role={role}
+          reviewExists={reviewExists}
         />
       </div>
       {reviews && reviews.length === 0 && <p>No reviews available.</p>}
@@ -89,7 +89,7 @@ const MovieReviewsTab = ({ movieId, movieTitle }) => {
           </li>
         ))}
       </ul>
-    </>
+    </section>
   );
 };
 

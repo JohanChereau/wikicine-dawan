@@ -16,7 +16,7 @@ const App = () => {
       errorElement: <ErrorPage />,
       children: [
         {
-          path: '',
+          index: true,
           element: <HomePage />,
         },
         {
@@ -26,7 +26,19 @@ const App = () => {
               path: 'details/:movieId',
               element: <MovieDetailsPage />,
             },
+            {
+              path: 'wiki/:movieId',
+              element: null,
+            },
+            {
+              path: 'create-wiki',
+              element: null,
+            },
           ],
+        },
+        {
+          path: 'user/:username',
+          element: null,
         },
         {
           path: 'signup',
@@ -40,6 +52,10 @@ const App = () => {
           path: 'dashboard',
           element: <ProtectedRoute />,
           children: [
+            {
+              index: true,
+              element: null,
+            },
             {
               path: 'settings',
               element: null,
