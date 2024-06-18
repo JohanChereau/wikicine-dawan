@@ -64,7 +64,7 @@ const App = () => {
               element: null,
             },
             {
-              path: 'create-wiki',
+              path: 'create-wiki/:movieId',
               element: (
                 <ProtectedRoute
                   allowedRoles={Object.keys(ROLES).filter(

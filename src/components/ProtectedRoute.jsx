@@ -15,7 +15,7 @@ const ProtectedRoute = ({ allowedRoles = [] }) => {
       return;
     }
 
-    if (!profile || !allowedRoles.includes(profile.role)) {
+    if (profile && !allowedRoles.includes(profile.role)) {
       navigate('/', { replace: true });
     }
   }, [navigate, session, isLoading, allowedRoles, profile]);
@@ -29,7 +29,7 @@ const ProtectedRoute = ({ allowedRoles = [] }) => {
     );
   }
 
-  if (error) return <p>Error : {error?.message}</p>;
+  if (error) return <p>Error: {error?.message}</p>;
 
   return <Outlet />;
 };

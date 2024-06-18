@@ -19,17 +19,19 @@ export const AuthProvider = ({ children }) => {
         data: { session },
         error: sessionError,
       } = await supabase.auth.getSession();
+
       if (sessionError) {
         console.error('Error fetching session:', sessionError);
         setError(sessionError);
+        setIsLoading(false);
+        return;
       }
+
       setUserInfo((prevUserInfo) => ({ ...prevUserInfo, session }));
 
       if (session?.user) {
-        // Fetch the user profile if the session exists
         await fetchUserProfile(session.user.id);
       } else {
-        // If no session, set loading to false
         setIsLoading(false);
       }
     };
@@ -66,7 +68,6 @@ export const AuthProvider = ({ children }) => {
         setUserInfo((prevUserInfo) => ({ ...prevUserInfo, profile: data }));
       }
 
-      // Listen to changes in the user profile
       const newChannel = supabase
         .channel(`public:user_profiles`)
         .on(
