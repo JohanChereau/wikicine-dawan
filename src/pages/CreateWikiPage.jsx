@@ -31,7 +31,7 @@ const CreateWikiPage = () => {
 
   const { session } = useAuth();
 
-  const { getWikiMovie, updateWikiMovie } = useWikiMovie(movieId);
+  const { getWikiMovie, updateWikiMovie, insertWikiMovie } = useWikiMovie(movieId);
   const { data: wikiData, isLoading: isWikiDataLoading } = getWikiMovie;
 
   const { useMovieDetails } = useMovies();
@@ -74,28 +74,37 @@ const CreateWikiPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      await updateWikiMovie({
-        movie_id: movieId,
-        user_id: session?.user?.id,
-        movie_title: movieData?.title || 'Unknown title',
-        content: data.content,
-      });
+      if (wikiData) {
+        await updateWikiMovie({
+          movie_id: movieId,
+          user_id: session?.user?.id,
+          movie_title: movieData?.title || 'Unknown title',
+          content: data.content,
+        });
+      } else {
+        await insertWikiMovie({
+          movie_id: movieId,
+          user_id: session?.user?.id,
+          movie_title: movieData?.title || 'Unknown title',
+          content: data.content,
+        });
+      }
       reset();
       setSaved(true);
       toast({
-        title: 'Wiki Updated',
-        description: 'The wiki page has been successfully updated.',
+        title: 'Wiki Saved',
+        description: 'The wiki page has been successfully saved.',
       });
       setTimeout(() => setSaved(false), 2000);
     } catch (error) {
       setError('root', {
         message: error.message || 'An unknown error occurred',
       });
-      console.error('Error updating wiki:', error.message);
+      console.error('Error saving wiki:', error.message);
       toast({
         variant: 'destructive',
-        title: 'Update Failed',
-        description: 'An error occurred while updating the wiki page.',
+        title: 'Save Failed',
+        description: 'An error occurred while saving the wiki page.',
         action: (
           <ToastAction altText="Try again" onClick={() => handleSubmit(onSubmit)}>
             Try again

@@ -45,8 +45,8 @@ const WikiPage = () => {
     );
 
   return (
-    <section className="grid gap-6">
-      <div className="flex items-center justify-between gap-4 flex-wrap">
+    <article className="grid gap-6">
+      <section className="flex items-center justify-between gap-4 flex-wrap">
         <Button variant="outline" asChild>
           <Link to=".." onClick={handleGoToPreviousPage}>
             Back
@@ -57,9 +57,9 @@ const WikiPage = () => {
             <Link to={`/dashboard/create-wiki/${movieId}`}>Edit wiki</Link>
           </Button>
         )}
-      </div>
+      </section>
       <MarkdownPreview>{wikiData?.content}</MarkdownPreview>
-    </section>
+    </article>
   );
 };
 

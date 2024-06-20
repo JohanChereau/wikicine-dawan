@@ -5,7 +5,7 @@ import rehypeRaw from 'rehype-raw';
 
 const MarkdownPreview = ({ children }) => {
   return (
-    <section className={`${MARKDOWN_STYLE}`}>
+    <section className={`${MARKDOWN_STYLE} max-w-4xl mx-auto px-2`}>
       <ReactMarkdown
         remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
         rehypePlugins={[[rehypeRaw, { allowDangerousHtml: false }]]}

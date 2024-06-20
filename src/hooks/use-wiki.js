@@ -43,8 +43,26 @@ export function useWikiMovie(movieId) {
     },
   });
 
+  const insertWikiMovie = async (newEntry) => {
+    const { data, error } = await supabase.from('wiki_movies').insert(newEntry);
+
+    if (error) {
+      throw new Error('An error occurred while inserting the wiki movie.');
+    }
+
+    return data;
+  };
+
+  const insertWikiMovieMutation = useMutation({
+    mutationFn: insertWikiMovie,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['wikiMovie', movieId]);
+    },
+  });
+
   return {
     getWikiMovie,
     updateWikiMovie: updateWikiMovieMutation.mutateAsync,
+    insertWikiMovie: insertWikiMovieMutation.mutateAsync,
   };
 }
