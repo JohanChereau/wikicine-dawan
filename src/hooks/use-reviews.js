@@ -46,12 +46,12 @@ export function useMovieReviews(movieId) {
   };
 }
 
-export function useUserReviews(username) {
+export function useUserReviews(id) {
   const fetchUserReviews = async () => {
     const { data: reviews, error: userReviewsError } = await supabase
       .from('reviews')
       .select('*, user_profiles(username, role, avatar)')
-      .eq('user_profiles.username', username)
+      .eq('user_id', id)
       .order('created_at', { ascending: false });
 
     if (userReviewsError) {
@@ -62,7 +62,7 @@ export function useUserReviews(username) {
   };
 
   return useQuery({
-    queryKey: ['userReviews', username],
+    queryKey: ['userReviews', id],
     queryFn: fetchUserReviews,
   });
 }

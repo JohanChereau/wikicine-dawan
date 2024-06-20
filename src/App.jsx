@@ -8,8 +8,9 @@ import SignInPage from './pages/SignInPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import SignOutPage from './pages/SignOutPage';
 import CreateWikiPage from './pages/CreateWikiPage';
-import { ROLES } from './utils/icons/roles';
+import UserProfilePage from './pages/UserProfilePage';
 import WikiPage from './pages/WikiPage';
+import { ROLES } from './utils/icons/roles';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -36,8 +37,8 @@ const App = () => {
           ],
         },
         {
-          path: 'user/:username',
-          element: null,
+          path: 'user/profile/:id',
+          element: <UserProfilePage />,
         },
         {
           path: 'signup',
