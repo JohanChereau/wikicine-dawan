@@ -1,4 +1,4 @@
-import MovieRating from './MovieRating';
+import MovieRating from '@/components/ui/MovieRating';
 import { Card, CardContent, CardFooter, CardHeader } from '../ui/Card';
 import { CalendarDaysIcon } from 'lucide-react';
 import RoleBadge from '../ui/RoleBadge';
