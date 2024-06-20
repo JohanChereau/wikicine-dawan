@@ -7,6 +7,7 @@ import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import SignOutPage from './pages/SignOutPage';
+import UserProfilePage from './pages/UserProfilePage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -37,8 +38,8 @@ const App = () => {
           ],
         },
         {
-          path: 'user/:username',
-          element: null,
+          path: 'user/profile',
+          element: <UserProfilePage />,
         },
         {
           path: 'signup',
