@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs';
 import MovieCastTab from './MovieCastTab';
 import MovieReviewsTab from './MovieReviewsTab';
-import { useReviews } from '@/hooks/use-reviews';
+import { useMovieReviews } from '@/hooks/use-reviews';
 import { useAuth } from '@/services/providers/auth-provider';
 
-const MovieTabs = ({ movieId, movieTitle }) => {
-  const { getReviews } = useReviews(movieId);
+const MovieTabs = ({ movieId, movieTitle, moviePoster }) => {
+  const { getReviews } = useMovieReviews(movieId);
   const { data: reviews, isLoading, isError } = getReviews;
   const { profile } = useAuth();
 
@@ -37,6 +37,7 @@ const MovieTabs = ({ movieId, movieTitle }) => {
             reviews={userReviews}
             movieId={movieId}
             movieTitle={movieTitle}
+            moviePoster={moviePoster}
             role="user"
             reviewExists={reviewExists}
             isLoading={isLoading}
@@ -48,6 +49,7 @@ const MovieTabs = ({ movieId, movieTitle }) => {
             reviews={contributorReviews}
             movieId={movieId}
             movieTitle={movieTitle}
+            moviePoster={moviePoster}
             role="contributor"
             reviewExists={reviewExists}
             isLoading={isLoading}

@@ -24,6 +24,7 @@ const MovieReviewsTab = ({
   reviews,
   movieId,
   movieTitle,
+  moviePoster,
   role,
   reviewExists,
   isLoading,
@@ -77,6 +78,7 @@ const MovieReviewsTab = ({
           triggerDisabled={reviewExists}
           movieTitle={movieTitle}
           movieId={movieId}
+          moviePoster={moviePoster}
           role={role}
           reviewExists={reviewExists}
         />

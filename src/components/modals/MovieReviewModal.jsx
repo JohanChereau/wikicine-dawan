@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useReviews } from '@/hooks/use-reviews';
+import { useMovieReviews } from '@/hooks/use-reviews';
 import {
   Dialog,
   DialogContent,
@@ -43,6 +43,7 @@ const FormSchema = z.object({
 const MovieReviewModal = ({
   triggerDisabled,
   movieTitle,
+  moviePoster,
   movieId,
   role,
   reviewExists,
@@ -63,7 +64,7 @@ const MovieReviewModal = ({
     formState: { isSubmitting, isSubmitSuccessful },
   } = form;
 
-  const { addReview } = useReviews(movieId);
+  const { addReview } = useMovieReviews(movieId);
   const { session } = useAuth();
 
   const onSubmit = async (data) => {
@@ -72,6 +73,10 @@ const MovieReviewModal = ({
         ...data,
         user_id: session?.user?.id,
         movie_id: movieId,
+        movie_title: movieTitle || 'Unknown title',
+        movie_poster:
+          `https://image.tmdb.org/t/p/original${moviePoster}` ||
+          'https://placehold.co/400x600/FACC15/black?text=Wikicin%C3%A9',
       });
       reset();
     } catch (error) {
