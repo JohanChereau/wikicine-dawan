@@ -1,5 +1,6 @@
 import UserHeader from '@/components/users/UserHeader';
 import UserTabs from '@/components/users/UserTabs';
+import UserCommentCard from '@/components/users/UserCommentCard';
 import { FaInfoCircle, FaShare } from 'react-icons/fa';
 import { ScrollRestoration } from 'react-router-dom';
 
@@ -20,6 +21,8 @@ const UserProfilePage = () => {
       </section>
 
       <UserTabs />
+
+      <UserCommentCard />
 
       <ScrollRestoration />
     </article>

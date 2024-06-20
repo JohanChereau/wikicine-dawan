@@ -60,11 +60,10 @@ const UserTabs = ({
 
   return (
     <section>
-      <Tabs defaultValue="last-reviews">
-        <TabsList>
+      <Tabs defaultValue="all-reviews">
+        <TabsList className="flex gap-40">
           <TabsTrigger value="all-reviews">All Reviews</TabsTrigger>
           <TabsTrigger value="favorites">Favorites</TabsTrigger>
-          <TabsTrigger value="last-reviews">Last Reviews</TabsTrigger>
         </TabsList>
         <TabsContent value="all-reviews">
           <div className="grid grid-cols-2 gap-4 mt-6 mb-8">
@@ -105,15 +104,14 @@ const UserTabs = ({
         <TabsContent value="favorites">
           {/* Ici vous pouvez ajouter le contenu pour les avis favoris */}
         </TabsContent>
-        <TabsContent value="last-reviews">
-          {/* Vous pouvez réutiliser le même contenu que pour les all-reviews si nécessaire */}
-        </TabsContent>
       </Tabs>
     </section>
   );
 };
 
 export default UserTabs;
+
+
 
 
   
