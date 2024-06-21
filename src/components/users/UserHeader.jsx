@@ -1,10 +1,9 @@
 import { Button } from '@/components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
 import { ArrowLeftIcon } from 'lucide-react';
 
 const UserHeader = ({ userProfile }) => {
-  const { username, role, bio, avatar, banner } = userProfile;
+  const { username, bio, avatar, banner } = userProfile;
 
   const navigate = useNavigate();
 
@@ -26,7 +25,7 @@ const UserHeader = ({ userProfile }) => {
 
       <div className="grid gap-3 self-end translate-y-2 pt-20 pb-6 dark:pb-0 bg-gradient-to-t from-black dark:from-background to-transparent rounded-b-md">
         <div className="flex flex-col justify-center items-center gap-4">
-        <img
+          <img
             src={`${
               avatar ? avatar : 'https://placehold.co/300x300/FACC15/black?text=User'
             }`}
