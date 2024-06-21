@@ -59,3 +59,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+.mdxeditor-toolbar {
+  @apply bg-background fixed bottom-0 left-0 w-full h-fit mt-auto overflow-x-scroll md:overflow-hidden md:static;
+}
+
+.mdxeditor-toolbar [data-toolbar-item='true'][data-state='on'],
+.mdxeditor-toolbar [data-toolbar-item='true'][data-state='on'] * {
+  @apply bg-primary text-background;
+}
+
+.mdxeditor-toolbar [data-toolbar-item='true'][data-state='off'],
+.mdxeditor-toolbar [data-toolbar-item='true'][data-state='off'] *,
+.mdxeditor-toolbar button * {
+  @apply bg-background text-foreground;
+}
+
+.mdxeditor-toolbar button:has(> span[data-state='closed']) {
+  @apply bg-background text-foreground;
+}
+
+.mdxeditor-toolbar button:has(> span[data-state='opened']) {
+  @apply bg-primary text-background;
+}
+
+.mdxeditor-toolbar button {
+  @apply hover:bg-primary;
+}
+
+.mdxeditor table button {
+  @apply bg-foreground opacity-100 text-background;
+  opacity: 100 !important;
+}

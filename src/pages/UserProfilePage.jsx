@@ -1,28 +1,58 @@
 import UserHeader from '@/components/users/UserHeader';
 import UserTabs from '@/components/users/UserTabs';
-import UserCommentCard from '@/components/users/UserCommentCard';
 import { FaInfoCircle, FaShare } from 'react-icons/fa';
-import { ScrollRestoration } from 'react-router-dom';
+import { ScrollRestoration, useParams } from 'react-router-dom';
+import { useUserReviews } from '@/hooks/use-reviews';
+import { useUserProfile } from '@/hooks/use-userProfile';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { Button } from '@/components/ui/Button';
 
 const UserProfilePage = () => {
+  const { id } = useParams();
+
+  const { getUserProfile } = useUserProfile(id);
+  const {
+    data: userProfile,
+    isLoading: isUserProfileLoading,
+    isError: isUserProfileError,
+  } = getUserProfile;
+
+  const { data: reviews, isReviewsLoading, isReviewsError } = useUserReviews(id);
+
+  if (isUserProfileLoading) {
+    return (
+      <section className="grid grid-flow-row gap-4">
+        <Skeleton className="w-full h-60" />
+        <Skeleton className="w-full h-20" />
+        <Skeleton className="w-full h-40" />
+      </section>
+    );
+  }
+
+  if (isUserProfileError) {
+    return <p>Error fetching the user profile.</p>;
+  }
+
   return (
     <article className="grid grid-flow-row gap-8 max-w-[1000px] mx-auto">
-      <UserHeader />
+      <UserHeader userProfile={userProfile} />
 
-      <section className="flex justify-center gap-[4rem] mt-4">
-        <button className="w-3/10 flex items-center bg-gray-800 text-white px-6 py-3 rounded-md text-lg hover:bg-gray-700">
+      <section className="grid grid-flow-row sm:grid-cols-2 gap-4 my-6">
+        <Button variant="secondary" size="lg">
           <FaInfoCircle className="mr-2" />
-          Report Account
-        </button>
-        <button className="w-3/10 flex items-center bg-yellow-500 text-black px-6 py-3 rounded-md text-lg hover:bg-yellow-400">
+          <span>Report Account</span>
+        </Button>
+        <Button size="lg">
           <FaShare className="mr-2" />
-          Share Profile
-        </button>
+          <span>Share Profile</span>
+        </Button>
       </section>
 
-      <UserTabs />
-
-      <UserCommentCard />
+      <UserTabs
+        reviews={reviews}
+        isLoading={isReviewsLoading}
+        isError={isReviewsError}
+      />
 
       <ScrollRestoration />
     </article>
@@ -30,4 +60,3 @@ const UserProfilePage = () => {
 };
 
 export default UserProfilePage;
-

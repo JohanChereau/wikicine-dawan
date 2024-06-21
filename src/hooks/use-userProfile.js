@@ -1,14 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/services/supabase/supabaseClient.js';
 
-export function useUserProfile(username) {
+export function useUserProfile(id) {
   const queryClient = useQueryClient();
 
   const fetchUserProfile = async () => {
     const { data: userProfile, error: profileError } = await supabase
       .from('user_profiles')
       .select('*')
-      .eq('username', username)
+      .eq('user_id', id)
       .single();
 
     if (profileError) {
@@ -19,7 +19,7 @@ export function useUserProfile(username) {
   };
 
   const getUserProfile = useQuery({
-    queryKey: ['userProfile', username],
+    queryKey: ['userProfile', id],
     queryFn: fetchUserProfile,
   });
 
@@ -27,7 +27,7 @@ export function useUserProfile(username) {
     const { data, error } = await supabase
       .from('user_profiles')
       .update(profileData)
-      .eq('username', username);
+      .eq('user_id', id);
 
     if (error) {
       throw new Error('An error occurred while updating the user profile.');
@@ -39,7 +39,7 @@ export function useUserProfile(username) {
   const updateUserProfileMutation = useMutation({
     mutationFn: updateUserProfile,
     onSuccess: () => {
-      queryClient.invalidateQueries(['userProfile', username]);
+      queryClient.invalidateQueries(['userProfile', id]);
     },
   });
 

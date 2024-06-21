@@ -8,28 +8,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
-import MovieComment from '../ui/MovieComment';
-import MovieReviewModal from '../modals/MovieReviewModal';
-import { Skeleton } from '../ui/Skeleton';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import UserProfileReview from '@/components/users/UserProfileReview';
 
 const filterReviews = (reviews, sortBy) => {
   if (sortBy === 'latest') {
-    return reviews.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    return reviews
+      .slice()
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   } else {
-    return reviews.slice().sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    return reviews
+      .slice()
+      .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
   }
 };
 
-const UserTabs = ({
-  reviews,
-  movieId,
-  movieTitle,
-  role,
-  reviewExists,
-  isLoading,
-  isError,
-}) => {
+const UserTabs = ({ reviews, isLoading, isError }) => {
   const [sortBy, setSortBy] = useState('latest');
   const [filteredReviews, setFilteredReviews] = useState([]);
 
@@ -61,7 +56,7 @@ const UserTabs = ({
   return (
     <section>
       <Tabs defaultValue="all-reviews">
-        <TabsList className="flex gap-40">
+        <TabsList className="flex justify-start gap-8">
           <TabsTrigger value="all-reviews">All Reviews</TabsTrigger>
           <TabsTrigger value="favorites">Favorites</TabsTrigger>
         </TabsList>
@@ -83,26 +78,18 @@ const UserTabs = ({
                 </SelectGroup>
               </SelectContent>
             </Select>
-
-            <MovieReviewModal
-              triggerDisabled={reviewExists}
-              movieTitle={movieTitle}
-              movieId={movieId}
-              role={role}
-              reviewExists={reviewExists}
-            />
           </div>
           {reviews && reviews.length === 0 && <p>No reviews available.</p>}
           <ul className="grid grid-flow-row gap-4">
             {filteredReviews.map((review) => (
               <li key={review?.id}>
-                <MovieComment review={review} />
+                <UserProfileReview review={review} />
               </li>
             ))}
           </ul>
         </TabsContent>
         <TabsContent value="favorites">
-          {/* Ici vous pouvez ajouter le contenu pour les avis favoris */}
+          <p>No favorites found.</p>
         </TabsContent>
       </Tabs>
     </section>
@@ -110,9 +97,3 @@ const UserTabs = ({
 };
 
 export default UserTabs;
-
-
-
-
-  
-

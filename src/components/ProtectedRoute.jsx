@@ -1,10 +1,10 @@
-import { useAuth } from '@/services/providers/auth-provider';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Skeleton } from './ui/Skeleton';
+import { useAuth } from '@/services/providers/auth-provider';
 
-const ProtectedRoute = () => {
-  const { session, isLoading } = useAuth();
+const ProtectedRoute = ({ allowedRoles = [] }) => {
+  const { session, profile, isLoading, error } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,8 +12,13 @@ const ProtectedRoute = () => {
 
     if (!session) {
       navigate('/signin', { replace: true });
+      return;
     }
-  }, [navigate, session, isLoading]);
+
+    if (profile && !allowedRoles.includes(profile.role)) {
+      navigate('/', { replace: true });
+    }
+  }, [navigate, session, isLoading, allowedRoles, profile]);
 
   if (isLoading) {
     return (
@@ -23,6 +28,8 @@ const ProtectedRoute = () => {
       </section>
     );
   }
+
+  if (error) return <p>Error: {error?.message}</p>;
 
   return <Outlet />;
 };

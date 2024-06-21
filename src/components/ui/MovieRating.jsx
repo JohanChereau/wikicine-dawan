@@ -26,7 +26,6 @@ const MovieRating = ({
       <p className="text-base text-muted-foreground">
         {scaledRating.toFixed(1)} / {starCount}
         {showVoteCount && ` (${voteCount})`}{' '}
-        {/* Affichage conditionnel du voteCount */}
       </p>
     </div>
   );
