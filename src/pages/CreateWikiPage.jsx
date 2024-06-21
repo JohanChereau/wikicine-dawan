@@ -23,36 +23,26 @@ import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/Toast';
 
 const FormSchema = z.object({
-  content: z.string().min(10, { message: 'Content must be at least 10 characters' }),
+  content: z.string().min(10, 'Content must be at least 10 characters'),
 });
 
 const CreateWikiPage = () => {
   const { movieId } = useParams();
-
   const { session } = useAuth();
-
   const { getWikiMovie, updateWikiMovie, insertWikiMovie } = useWikiMovie(movieId);
   const { data: wikiData, isLoading: isWikiDataLoading } = getWikiMovie;
-
   const { useMovieDetails } = useMovies();
   const { data: movieData, isLoading: isMovieDataLoading } =
     useMovieDetails(movieId);
-
   const navigate = useNavigate();
-
-  const handleGoToPreviousPage = (e) => {
-    e.preventDefault();
-    navigate(-1);
-  };
+  const { toast } = useToast();
 
   const [saved, setSaved] = useState(false);
-
-  const { toast } = useToast();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      content: '',
+      content: wikiData?.content || '',
     },
   });
 
@@ -65,30 +55,29 @@ const CreateWikiPage = () => {
   } = form;
 
   useEffect(() => {
-    if (wikiData) {
-      reset({
-        content: wikiData.content || '',
-      });
-    }
+    reset({ content: wikiData?.content || '' });
   }, [wikiData, reset]);
+
+  const handleGoToPreviousPage = (e) => {
+    e.preventDefault();
+    navigate(-1);
+  };
 
   const onSubmit = async (data) => {
     try {
+      const requestData = {
+        movie_id: movieId,
+        user_id: session?.user?.id,
+        movie_title: movieData?.title || 'Unknown title',
+        content: data.content,
+      };
+
       if (wikiData) {
-        await updateWikiMovie({
-          movie_id: movieId,
-          user_id: session?.user?.id,
-          movie_title: movieData?.title || 'Unknown title',
-          content: data.content,
-        });
+        await updateWikiMovie(requestData);
       } else {
-        await insertWikiMovie({
-          movie_id: movieId,
-          user_id: session?.user?.id,
-          movie_title: movieData?.title || 'Unknown title',
-          content: data.content,
-        });
+        await insertWikiMovie(requestData);
       }
+
       reset();
       setSaved(true);
       toast({
@@ -97,35 +86,32 @@ const CreateWikiPage = () => {
       });
       setTimeout(() => setSaved(false), 2000);
     } catch (error) {
-      setError('root', {
-        message: error.message || 'An unknown error occurred',
-      });
+      setError('content', { message: error.message || 'An unknown error occurred' });
       console.error('Error saving wiki:', error.message);
       toast({
         variant: 'destructive',
         title: 'Save Failed',
         description: 'An error occurred while saving the wiki page.',
         action: (
-          <ToastAction altText="Try again" onClick={() => handleSubmit(onSubmit)}>
-            Try again
-          </ToastAction>
+          <ToastAction onClick={() => handleSubmit(onSubmit)}>Try again</ToastAction>
         ),
       });
     }
   };
 
-  if (isWikiDataLoading && isMovieDataLoading)
+  if (isWikiDataLoading || isMovieDataLoading) {
     return (
       <section className="grid gap-8">
         <Skeleton className="w-full h-40" />
         <Skeleton className="w-full h-40" />
       </section>
     );
+  }
 
   return (
     <section className="mx-auto">
       <h1 className="text-2xl md:text-4xl text-center font-bold mb-6">
-        Wiki : {movieData?.title}
+        Wiki: {movieData?.title || 'Unknown Title'}
       </h1>
 
       <Form {...form}>
@@ -172,11 +158,10 @@ const CreateWikiPage = () => {
                     )}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>{form.formState.errors.content?.message}</FormMessage>
               </FormItem>
             )}
           />
-
           <FormRootError />
         </form>
       </Form>

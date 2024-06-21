@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '../ui/Card';
 import { CalendarDaysIcon } from 'lucide-react';
 import RoleBadge from '../ui/RoleBadge';
 import { Link } from 'react-router-dom';
+import MarkdownPreview from '../MarkdownPreview';
 
 const MovieComment = ({ review }) => {
   return (
@@ -29,7 +30,11 @@ const MovieComment = ({ review }) => {
         </Link>
         <MovieRating rating={review?.rating} ratingScale={5} showVoteCount={false} />
       </CardHeader>
-      <CardContent>{review?.comment || 'No comment available.'}</CardContent>
+      <CardContent>
+        <MarkdownPreview>
+          {review?.comment || 'No comment available.'}
+        </MarkdownPreview>
+      </CardContent>
       <CardFooter className="w-fit flex gap-2 ml-auto text-muted-foreground">
         <CalendarDaysIcon className="max-w-6" />
         <span>

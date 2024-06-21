@@ -39,31 +39,27 @@ const UserProfileReview = ({ review }) => {
             </div>
           </div>
         </div>
-        <button className="text-sm text-gray-500 hover:text-white hover:underline-none">Show more</button> 
       </CardHeader>
       <CardContent className="flex gap-4">
         <div className="flex flex-col items-center">
-          <img src={movie_poster} alt={`${movie_title} poster`} className="h-auto rounded-lg max-w-20 md:max-w-32"/>
+          <img
+            src={movie_poster}
+            alt={`${movie_title} poster`}
+            className="h-auto rounded-lg max-w-20 md:max-w-32"
+          />
         </div>
         <div className="flex flex-col gap-2 flex-1">
-          <p>{truncateText(comment, 600, "...")}</p>
+          <p>{truncateText(comment, 600, '...')}</p>
         </div>
       </CardContent>
       <CardFooter className="w-full flex justify-between flex-wrap gap-4 items-center text-muted-foreground">
-        <p className="font-semibold text-gray-500">{movie_title}</p> 
-        <span className="text-gray-500">{new Date(updated_at).toLocaleDateString()}</span> 
+        <p className="font-semibold text-gray-500">{movie_title}</p>
+        <span className="text-gray-500">
+          {new Date(updated_at).toLocaleDateString()}
+        </span>
       </CardFooter>
     </Card>
   );
 };
 
 export default UserProfileReview;
-
-
-
-
-
-
-
-
-
