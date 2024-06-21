@@ -7,7 +7,7 @@ export function useWikiMovie(movieId) {
   const fetchWikiMovie = async () => {
     const { data: wikiMovie, error: fetchError } = await supabase
       .from('wiki_movies')
-      .select('*')
+      .select('*, user_profiles(username, role, avatar, bio)')
       .eq('movie_id', movieId)
       .maybeSingle();
 
