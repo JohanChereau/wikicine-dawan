@@ -13,6 +13,8 @@ const RoleBadge = ({ role }) => {
 
   const { icon: BadgeIcon, text: badgeText, color: badgeColor } = badgeData;
 
+  if (!BadgeIcon) return null;
+
   return (
     <TooltipProvider>
       <Tooltip>
