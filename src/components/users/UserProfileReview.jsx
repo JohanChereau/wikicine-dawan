@@ -39,9 +39,6 @@ const UserProfileReview = ({ review }) => {
             </div>
           </div>
         </div>
-        <button className="text-sm text-gray-500 hover:text-white hover:underline-none">
-          Show more
-        </button>
       </CardHeader>
       <CardContent className="flex gap-4">
         <div className="flex flex-col items-center">

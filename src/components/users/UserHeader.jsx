@@ -30,7 +30,7 @@ const UserHeader = ({ userProfile }) => {
               avatar ? avatar : 'https://placehold.co/300x300/FACC15/black?text=User'
             }`}
             alt={`${username || 'Unknown user'}'s avatar`}
-            className="aspect-square object-cover rounded-full w-8 md:w-12 cursor-pointer"
+            className="aspect-square object-cover rounded-full max-w-16 md:max-w-24 cursor-pointer"
           />
           <h2 className="text-3xl sm:text-4xl font-semibold text-white">
             @{username || 'Unknown user'}
