@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon } from 'lucide-react';
+import RoleBadge from '../ui/RoleBadge';
 
 const UserHeader = ({ userProfile }) => {
-  const { username, bio, avatar, banner } = userProfile;
+  const { username, bio, avatar, banner, role } = userProfile;
 
   const navigate = useNavigate();
 
@@ -14,10 +15,14 @@ const UserHeader = ({ userProfile }) => {
 
   return (
     <header
-      className="grid grid-rows-[auto_3fr] gap-2 min-h-64 text-center bg-no-repeat bg-top bg-cover rounded-md"
-      style={{ background: banner ? `url(${banner})` : 'black' }}
+      className="grid grid-rows-[auto_3fr] gap-2 min-h-64 text-center bg-no-repeat bg-cover bg-center rounded-md"
+      style={{
+        backgroundImage: banner
+          ? `url(${banner})`
+          : 'url(https://placehold.co/600x400/black/black)',
+      }}
     >
-      <Button className="shadow-lg text-white" variant="iconDark" asChild>
+      <Button className="shadow-lg text-white ml-6 mt-6" variant="iconDark" asChild>
         <Link to=".." onClick={handleGoToPreviousPage}>
           <ArrowLeftIcon />
         </Link>
@@ -32,11 +37,14 @@ const UserHeader = ({ userProfile }) => {
             alt={`${username || 'Unknown user'}'s avatar`}
             className="aspect-square object-cover rounded-full max-w-16 md:max-w-24 cursor-pointer"
           />
-          <h2 className="text-3xl sm:text-4xl font-semibold text-white">
-            @{username || 'Unknown user'}
-          </h2>
+          <div className="inline-flex items-center gap-2">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white">
+              @{username || 'Unknown user'}
+            </h2>
+            <RoleBadge role={role || 'user'} />
+          </div>
         </div>
-        <p className="text-zinc-300 text-base md:text-lg">{bio}</p>
+        <p className="text-zinc-300 text-base md:text-lg">{bio || ''}</p>
       </div>
     </header>
   );
