@@ -17,7 +17,7 @@ const MoviePreviewCard = ({
     >
       <div>
         <img
-          className="aspect-[2/3] object-cover image rounded-md block h-full group-hover:scale-105"
+          className="aspect-[2/3] object-cover image rounded-md block h-full group-hover:scale-105 transition-transform duration-150 ease-in-out"
           src={moviePoster}
           alt={`${movieTitle}'s poster`}
         />

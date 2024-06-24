@@ -25,7 +25,7 @@ const MovieComment = ({ review }) => {
             <p className="font-semibold text-base md:text-xl hover:underline hover:underline-offset-4 hover:decoration-accent-foreground">{`@${
               review?.user_profiles?.username || 'Unknown User'
             }`}</p>
-            <RoleBadge role={review?.user_profiles?.role} />
+            <RoleBadge role={review?.user_profiles?.role || 'user'} />
           </div>
         </Link>
         <MovieRating rating={review?.rating} ratingScale={5} showVoteCount={false} />
