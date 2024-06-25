@@ -1,11 +1,10 @@
 import UserHeader from '@/components/users/UserHeader';
 import UserTabs from '@/components/users/UserTabs';
-import { FaInfoCircle, FaShare } from 'react-icons/fa';
 import { ScrollRestoration, useParams } from 'react-router-dom';
 import { useUserReviews } from '@/hooks/use-reviews';
 import { useUserProfile } from '@/hooks/use-userProfile';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { Button } from '@/components/ui/Button';
+import UserProfileActions from '@/components/users/UserProfileActions';
 
 const UserProfilePage = () => {
   const { id } = useParams();
@@ -37,16 +36,7 @@ const UserProfilePage = () => {
     <article className="grid grid-flow-row gap-8 max-w-[1000px] mx-auto">
       <UserHeader userProfile={userProfile} />
 
-      <section className="grid grid-flow-row sm:grid-cols-2 gap-4 my-6">
-        <Button variant="secondary" size="lg">
-          <FaInfoCircle className="mr-2" />
-          <span>Report Account</span>
-        </Button>
-        <Button size="lg">
-          <FaShare className="mr-2" />
-          <span>Share Profile</span>
-        </Button>
-      </section>
+      <UserProfileActions userProfile={userProfile} />
 
       <UserTabs
         reviews={reviews}
