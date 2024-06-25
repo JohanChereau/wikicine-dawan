@@ -48,7 +48,7 @@ const MovieCastTab = ({ movieId }) => {
                 />
               </CardContent>
               <CardHeader>
-                <CardTitle>{actor?.original_name || 'Unknown actor'}</CardTitle>
+                <CardTitle>{actor?.name || 'Unknown actor'}</CardTitle>
                 <CardDescription>
                   {actor?.character || 'Unknown character'} (
                   {actor?.known_for_department || 'Unknown department'})
