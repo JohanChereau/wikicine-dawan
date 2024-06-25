@@ -2,9 +2,10 @@ import { Button } from '@/components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon } from 'lucide-react';
 import RoleBadge from '../ui/RoleBadge';
+import EditUserProfileModal from '../modals/EditUserProfileModal';
 
 const UserHeader = ({ userProfile }) => {
-  const { username, bio, avatar, banner, role } = userProfile;
+  const { user_id, username, bio, avatar, banner, role } = userProfile;
 
   const navigate = useNavigate();
 
@@ -22,11 +23,14 @@ const UserHeader = ({ userProfile }) => {
           : 'url(https://placehold.co/600x400/black/black)',
       }}
     >
-      <Button className="shadow-lg text-white ml-6 mt-6" variant="iconDark" asChild>
-        <Link to=".." onClick={handleGoToPreviousPage}>
-          <ArrowLeftIcon />
-        </Link>
-      </Button>
+      <div className="flex justify-between items-center gap-4 flex-wrap m-6">
+        <Button className="shadow-lg text-white" variant="iconDark" asChild>
+          <Link to=".." onClick={handleGoToPreviousPage}>
+            <ArrowLeftIcon />
+          </Link>
+        </Button>
+        <EditUserProfileModal userId={user_id} />
+      </div>
 
       <div className="grid gap-3 self-end translate-y-2 pt-20 pb-6 dark:pb-0 bg-gradient-to-t from-black dark:from-background to-transparent rounded-b-md">
         <div className="flex flex-col justify-center items-center gap-4">
