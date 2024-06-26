@@ -38,7 +38,7 @@ const MovieTabs = ({ movieId, movieTitle, moviePoster }) => {
             movieId={movieId}
             movieTitle={movieTitle}
             moviePoster={moviePoster}
-            role="user"
+            tabRole="user"
             reviewExists={reviewExists}
             isLoading={isLoading}
             isError={isError}
@@ -50,7 +50,7 @@ const MovieTabs = ({ movieId, movieTitle, moviePoster }) => {
             movieId={movieId}
             movieTitle={movieTitle}
             moviePoster={moviePoster}
-            role="contributor"
+            tabRole="contributor"
             reviewExists={reviewExists}
             isLoading={isLoading}
             isError={isError}

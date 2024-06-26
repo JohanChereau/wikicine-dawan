@@ -24,6 +24,8 @@ import { Slider } from '../ui/Slider';
 import MovieRating from '../ui/MovieRating';
 import { Textarea } from '../ui/TextArea';
 import { useAuth } from '@/services/providers/auth-provider';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 const FormSchema = z.object({
   rating: z
@@ -40,12 +42,17 @@ const FormSchema = z.object({
     .max(10000, { message: 'Comment must not exceed 10000 characters' }),
 });
 
+const generateImageUrl = (posterPath) =>
+  posterPath
+    ? `https://image.tmdb.org/t/p/original${posterPath}`
+    : 'https://placehold.co/400x600/FACC15/black?text=Wikicin%C3%A9';
+
 const MovieReviewModal = ({
   triggerDisabled,
   movieTitle,
   moviePoster,
   movieId,
-  role,
+  tabRole,
   reviewExists,
 }) => {
   const form = useForm({
@@ -63,9 +70,10 @@ const MovieReviewModal = ({
     reset,
     formState: { isSubmitting, isSubmitSuccessful },
   } = form;
-
   const { addReview } = useMovieReviews(movieId);
-  const { session } = useAuth();
+  const { session, profile } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const onSubmit = async (data) => {
     try {
@@ -74,55 +82,63 @@ const MovieReviewModal = ({
         user_id: session?.user?.id,
         movie_id: movieId,
         movie_title: movieTitle || 'Unknown title',
-        movie_poster:
-          `https://image.tmdb.org/t/p/original${moviePoster}` ||
-          'https://placehold.co/400x600/FACC15/black?text=Wikicin%C3%A9',
+        movie_poster: generateImageUrl(moviePoster),
       });
       reset();
+      toast({
+        title: 'Review added successfully',
+        description: 'Your review has been added successfully. Thank you!',
+        status: 'success',
+      });
     } catch (error) {
       setError('root', {
-        message: error.message || 'An unknown error occurred',
+        message: error?.message || 'An unknown error occurred',
       });
-      console.error('Error adding review:', error.message);
+      toast({
+        title: 'Error adding review',
+        description: error?.message || 'An unknown error occurred',
+        status: 'error',
+      });
+      console.error('Error adding review:', error?.message);
     }
   };
 
-  if (!session) {
-    return null;
+  if (!session || !profile) {
+    return (
+      <Button onClick={() => navigate('/signin')} className="text-xs sm:text-base">
+        Sign in to review
+      </Button>
+    );
   }
 
   const shouldDisableButton = triggerDisabled || isSubmitting || isSubmitSuccessful;
-
-  let buttonMessage = 'Add a review';
-  if (reviewExists) {
-    buttonMessage = 'Review already posted';
-  } else if (role === 'contributor') {
-    buttonMessage = 'Add a contributor review';
-  }
-
-  const shouldShowButton =
-    (role === 'user' && session.user?.role !== 'contributor' && !reviewExists) ||
-    (role === 'contributor' &&
-      session.user?.role === 'contributor' &&
-      !reviewExists);
+  const userRole = profile?.role;
+  const isUserInCorrectTab =
+    (userRole !== 'contributor' && tabRole === 'user') ||
+    (userRole === 'contributor' && tabRole === 'contributor');
+  const buttonMessage = reviewExists ? 'Review already posted' : 'Add a review';
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {shouldShowButton && (
-          <Button disabled={shouldDisableButton}>{buttonMessage}</Button>
+        {isUserInCorrectTab && (
+          <Button
+            disabled={shouldDisableButton || reviewExists}
+            className="text-xs sm:text-base"
+          >
+            {buttonMessage}
+          </Button>
         )}
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Review {movieTitle}</DialogTitle>
-
         <Form {...form}>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-6 max-w-[800px] w-full"
           >
             <FormField
-              control={form.control}
+              control={control}
               name="rating"
               render={({ field: { value, onChange } }) => (
                 <FormItem className="grid gap-2">
@@ -133,16 +149,13 @@ const MovieReviewModal = ({
                       max={5}
                       step={1}
                       defaultValue={[value]}
-                      onValueChange={(vals) => {
-                        onChange(vals[0]);
-                      }}
-                      value={[form.getValues('rating')]}
+                      onValueChange={(vals) => onChange(vals[0])}
+                      value={[value]}
                     />
                   </FormControl>
                   <FormDescription>
                     Enter a rating between 1 and 5 for the movie.
                   </FormDescription>
-
                   <MovieRating
                     rating={value}
                     ratingScale={5}
@@ -152,7 +165,6 @@ const MovieReviewModal = ({
                 </FormItem>
               )}
             />
-
             <FormField
               control={control}
               name="comment"
@@ -169,7 +181,6 @@ const MovieReviewModal = ({
                 </FormItem>
               )}
             />
-
             <Button type="submit" className="w-full" disabled={shouldDisableButton}>
               {isSubmitting ? (
                 <div className="inline-flex items-center gap-2">
@@ -182,7 +193,6 @@ const MovieReviewModal = ({
                 'Submit my review'
               )}
             </Button>
-
             <FormRootError />
           </form>
         </Form>
