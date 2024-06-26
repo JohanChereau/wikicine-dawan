@@ -25,7 +25,7 @@ const MovieReviewsTab = ({
   movieId,
   movieTitle,
   moviePoster,
-  role,
+  tabRole,
   reviewExists,
   isLoading,
   isError,
@@ -79,7 +79,7 @@ const MovieReviewsTab = ({
           movieTitle={movieTitle}
           movieId={movieId}
           moviePoster={moviePoster}
-          role={role}
+          tabRole={tabRole}
           reviewExists={reviewExists}
         />
       </div>
