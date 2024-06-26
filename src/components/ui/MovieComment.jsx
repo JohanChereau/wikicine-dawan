@@ -31,9 +31,13 @@ const MovieComment = ({ review }) => {
         <MovieRating rating={review?.rating} ratingScale={5} showVoteCount={false} />
       </CardHeader>
       <CardContent>
-        <MarkdownPreview>
-          {review?.comment || 'No comment available.'}
-        </MarkdownPreview>
+        {review?.user_profiles?.role === 'contributor' ? (
+          <MarkdownPreview>
+            {review?.comment || 'No comment available.'}
+          </MarkdownPreview>
+        ) : (
+          <p>{review?.comment || 'No comment available.'}</p>
+        )}
       </CardContent>
       <CardFooter className="w-fit flex gap-2 ml-auto text-muted-foreground">
         <CalendarDaysIcon className="max-w-6" />
