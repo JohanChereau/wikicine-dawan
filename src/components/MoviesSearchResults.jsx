@@ -25,7 +25,7 @@ const MovieSearchResults = ({ query }) => {
     <section className="grid gap-12">
       <h3 className="text-2xl md:text-4xl font-bold">Results for: {query}</h3>
 
-      <ul className="grid grid-cols-auto-fit-200 gap-6">
+      <ul className="grid grid-cols-auto-fit-100 md:grid-cols-auto-fit-200 gap-6">
         {searchResults?.results?.map((movie) => (
           <li key={movie.id} className="grid">
             <MoviePreviewCard
