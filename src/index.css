@@ -61,7 +61,7 @@
 }
 
 .mdxeditor-toolbar {
-  @apply bg-background fixed bottom-0 left-0 w-full h-fit mt-auto overflow-x-scroll md:overflow-hidden md:static;
+  @apply bg-background fixed bottom-0 left-0 w-full h-fit mt-auto overflow-x-scroll md:overflow-hidden md:sticky md:left-0 md:top-0;
 }
 
 .mdxeditor-toolbar [data-toolbar-item='true'][data-state='on'],
