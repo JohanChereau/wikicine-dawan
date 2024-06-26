@@ -31,7 +31,7 @@ const MovieCastTab = ({ movieId }) => {
   }
 
   return (
-    <ul className="grid grid-cols-auto-fit-200 gap-4">
+    <ul className="grid grid-cols-auto-fit-200 sm:grid-cols-auto-fit-200 gap-4">
       {data?.cast?.map((actor) => {
         const profileImage = actor?.profile_path
           ? `https://image.tmdb.org/t/p/original${actor.profile_path}`
@@ -39,16 +39,18 @@ const MovieCastTab = ({ movieId }) => {
 
         return (
           <li key={actor?.id} className="grid">
-            <Card className="pt-6 grid grid-rows-subgrid row-span-2">
+            <Card className="pt-6 grid grid-rows-subgrid row-span-2 text-center">
               <CardContent>
                 <img
                   src={profileImage}
                   alt={`${actor?.original_name || 'Unknown actor'}'s profile photo`}
-                  className="rounded-md aspect-[2/3] object-cover"
+                  className="rounded-md aspect-[2/3] object-cover max-h-44 mx-auto"
                 />
               </CardContent>
               <CardHeader>
-                <CardTitle>{actor?.name || 'Unknown actor'}</CardTitle>
+                <CardTitle className="text-base sm:text-xl">
+                  {actor?.name || 'Unknown actor'}
+                </CardTitle>
                 <CardDescription>
                   {actor?.character || 'Unknown character'} (
                   {actor?.known_for_department || 'Unknown department'})
