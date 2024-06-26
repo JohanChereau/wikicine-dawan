@@ -28,12 +28,16 @@ const FormSchema = z.object({
 
 const CreateWikiPage = () => {
   const { movieId } = useParams();
+
   const { session } = useAuth();
+
   const { getWikiMovie, updateWikiMovie, insertWikiMovie } = useWikiMovie(movieId);
   const { data: wikiData, isLoading: isWikiDataLoading } = getWikiMovie;
+
   const { useMovieDetails } = useMovies();
   const { data: movieData, isLoading: isMovieDataLoading } =
     useMovieDetails(movieId);
+
   const navigate = useNavigate();
   const { toast } = useToast();
 
