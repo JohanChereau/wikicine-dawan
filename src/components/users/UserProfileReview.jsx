@@ -5,6 +5,7 @@ import { truncateText } from '@/utils/string/truncate';
 import RoleBadge from '../ui/RoleBadge';
 import { CalendarDaysIcon, Clapperboard } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import MarkdownPreview from '../MarkdownPreview';
 
 const UserProfileReview = ({ review }) => {
   if (!review) return <Skeleton className="w-full h-40" />;
@@ -54,7 +55,11 @@ const UserProfileReview = ({ review }) => {
           </Link>
         </div>
         <div className="flex flex-col gap-2 flex-1">
-          <p>{truncateText(comment, 600, '...')}</p>
+          {role === 'contributor' ? (
+            <MarkdownPreview>{truncateText(comment, 600, '...')}</MarkdownPreview>
+          ) : (
+            <p>{truncateText(comment, 600, '...')}</p>
+          )}
         </div>
       </CardContent>
       <CardFooter className="w-full flex justify-between flex-wrap gap-4 items-center text-muted-foreground">
