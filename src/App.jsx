@@ -11,6 +11,7 @@ import CreateWikiPage from './pages/CreateWikiPage';
 import UserProfilePage from './pages/UserProfilePage';
 import WikiPage from './pages/WikiPage';
 import { ROLES } from './utils/icons/roles';
+import BookmarksPage from './pages/BookmarksPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -62,7 +63,7 @@ const App = () => {
             },
             {
               path: 'bookmarks',
-              element: null,
+              element: <BookmarksPage />,
             },
             {
               path: 'create-wiki/:movieId',
