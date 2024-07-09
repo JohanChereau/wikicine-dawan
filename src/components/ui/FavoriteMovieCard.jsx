@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
 import FavoriteHeart from './FavoriteHeart';
 
-const FavoriteMovieCard = ({ movieId, moviePoster, movieTitle, removeMovie }) => {
+const FavoriteMovieCard = ({
+  movieId,
+  moviePoster,
+  movieTitle,
+  isFavorite,
+  toggleFavorite,
+}) => {
   return (
     <div className="group grid grid-rows-subgrid row-span-3 gap-3 content-between cursor-pointer select-none max-w-52 mx-auto relative">
       <Link to={`/movie/details/${movieId}`} className="block">
@@ -15,11 +21,11 @@ const FavoriteMovieCard = ({ movieId, moviePoster, movieTitle, removeMovie }) =>
         />
       </Link>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-4">
         <h4 className="text-base sm:text-xl font-bold">
           {movieTitle || 'Unknown title'}
         </h4>
-        {removeMovie && <FavoriteHeart />}
+        <FavoriteHeart isFavorite={isFavorite} onClick={toggleFavorite} />
       </div>
     </div>
   );
