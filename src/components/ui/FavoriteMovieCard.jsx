@@ -5,8 +5,9 @@ const FavoriteMovieCard = ({
   movieId,
   moviePoster,
   movieTitle,
-  isFavorite,
-  toggleFavorite,
+  isFavorite = true,
+  toggleFavorite = () => {},
+  displayButton = true,
 }) => {
   return (
     <div className="group grid grid-rows-subgrid row-span-3 gap-3 content-between cursor-pointer select-none max-w-52 mx-auto relative">
@@ -25,7 +26,9 @@ const FavoriteMovieCard = ({
         <h4 className="text-base sm:text-xl font-bold">
           {movieTitle || 'Unknown title'}
         </h4>
-        <FavoriteHeart isFavorite={isFavorite} onClick={toggleFavorite} />
+        {displayButton === true ? (
+          <FavoriteHeart isFavorite={isFavorite} onClick={toggleFavorite} />
+        ) : null}
       </div>
     </div>
   );

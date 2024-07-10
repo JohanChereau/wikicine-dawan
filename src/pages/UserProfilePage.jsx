@@ -42,6 +42,7 @@ const UserProfilePage = () => {
         reviews={reviews}
         isLoading={isReviewsLoading}
         isError={isReviewsError}
+        userId={id}
       />
 
       <ScrollRestoration />

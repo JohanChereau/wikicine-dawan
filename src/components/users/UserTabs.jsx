@@ -11,6 +11,7 @@ import {
 import { Skeleton } from '@/components/ui/Skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import UserProfileReview from '@/components/users/UserProfileReview';
+import UserProfileFavorites from './UserProfileFavorites';
 
 const filterReviews = (reviews, sortBy) => {
   if (sortBy === 'latest') {
@@ -24,7 +25,7 @@ const filterReviews = (reviews, sortBy) => {
   }
 };
 
-const UserTabs = ({ reviews, isLoading, isError }) => {
+const UserTabs = ({ reviews, isLoading, isError, userId }) => {
   const [sortBy, setSortBy] = useState('latest');
   const [filteredReviews, setFilteredReviews] = useState([]);
 
@@ -89,7 +90,7 @@ const UserTabs = ({ reviews, isLoading, isError }) => {
           </ul>
         </TabsContent>
         <TabsContent value="favorites">
-          <p>No favorites found.</p>
+          <UserProfileFavorites userId={userId} />
         </TabsContent>
       </Tabs>
     </section>

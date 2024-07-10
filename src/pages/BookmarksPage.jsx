@@ -100,8 +100,13 @@ const BookmarksPage = () => {
   }
 
   return (
-    <article className="grid gap-12">
-      <h1 className="text-4xl md:text-6xl font-bold text-center my-12">Bookmarks</h1>
+    <article className="grid gap-2">
+      <header className="py-20 grid grid-flow-row gap-6 place-items-center w-full">
+        <div className="text-center relative">
+          <BackgroundMesh />
+          <h1 className="text-4xl md:text-6xl font-bold">Bookmarks</h1>
+        </div>
+      </header>
 
       <section>
         <div className="grid grid-cols-2 gap-4 mt-6 mb-8">
