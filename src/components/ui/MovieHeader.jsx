@@ -32,6 +32,8 @@ const MovieHeader = ({ movieData }) => {
   };
 
   const handleToggleFavorite = async () => {
+    if (!session) return;
+
     try {
       if (isFavorite) {
         await removeFavorite(movieData?.id);
@@ -83,7 +85,9 @@ const MovieHeader = ({ movieData }) => {
           <Button className="shadow-lg" asChild>
             <Link to={`/movie/wiki/${movieData?.id}`}>Wiki</Link>
           </Button>
-          <FavoriteHeart isFavorite={isFavorite} onClick={handleToggleFavorite} />
+          {session && (
+            <FavoriteHeart isFavorite={isFavorite} onClick={handleToggleFavorite} />
+          )}
         </div>
       </div>
 
