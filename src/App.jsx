@@ -25,7 +25,7 @@ const App = () => {
           element: <HomePage />,
         },
         {
-          path: 'movie',
+          path: 'movies',
           children: [
             {
               path: 'details/:movieId',

@@ -11,7 +11,7 @@ const FavoriteMovieCard = ({
 }) => {
   return (
     <div className="group grid grid-rows-subgrid row-span-3 gap-3 content-between cursor-pointer select-none max-w-52 mx-auto relative">
-      <Link to={`/movie/details/${movieId}`} className="block">
+      <Link to={`/movies/details/${movieId}`} className="block">
         <img
           className="aspect-[2/3] object-cover rounded-md block h-full group-hover:scale-105 transition-transform duration-150 ease-in-out"
           src={

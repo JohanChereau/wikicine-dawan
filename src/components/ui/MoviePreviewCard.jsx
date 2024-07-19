@@ -12,7 +12,7 @@ const MoviePreviewCard = ({
 
   return (
     <Link
-      to={`/movie/details/${movieId}`}
+      to={`/movies/details/${movieId}`}
       className="group grid grid-rows-subgrid row-span-4 gap-3 content-between cursor-pointer select-none max-w-52 mx-auto"
     >
       <div>

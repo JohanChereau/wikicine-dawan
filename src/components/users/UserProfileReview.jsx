@@ -46,7 +46,7 @@ const UserProfileReview = ({ review }) => {
       </CardHeader>
       <CardContent className="flex gap-4">
         <div className="flex flex-col items-center">
-          <Link to={`/movie/details/${movie_id}`}>
+          <Link to={`/movies/details/${movie_id}`}>
             <img
               src={movie_poster}
               alt={`${movie_title} poster`}
@@ -65,7 +65,7 @@ const UserProfileReview = ({ review }) => {
       <CardFooter className="w-full flex justify-between flex-wrap gap-4 items-center text-muted-foreground">
         <p className="font-semibold text-gray-500">
           <Link
-            to={`/movie/details/${movie_id}`}
+            to={`/movies/details/${movie_id}`}
             className="inline-flex items-center gap-2 hover:underline"
           >
             <Clapperboard className="max-w-6" />

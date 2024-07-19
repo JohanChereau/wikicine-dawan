@@ -83,7 +83,7 @@ const MovieHeader = ({ movieData }) => {
         </Button>
         <div className="flex items-center gap-4">
           <Button className="shadow-lg" asChild>
-            <Link to={`/movie/wiki/${movieData?.id}`}>Wiki</Link>
+            <Link to={`/movies/wiki/${movieData?.id}`}>Wiki</Link>
           </Button>
           {session && (
             <FavoriteHeart isFavorite={isFavorite} onClick={handleToggleFavorite} />
