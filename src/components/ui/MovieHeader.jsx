@@ -18,13 +18,13 @@ const MovieHeader = ({ movieData }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (getFavorites.data) {
+    if (userId && getFavorites.data) {
       const favorite = getFavorites.data.find(
         (movie) => movie.movie_id === movieData.id
       );
       setIsFavorite(!!favorite);
     }
-  }, [getFavorites.data, movieData.id]);
+  }, [getFavorites.data, movieData.id, userId]);
 
   const handleGoToPreviousPage = (e) => {
     e.preventDefault();

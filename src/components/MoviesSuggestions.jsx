@@ -47,7 +47,11 @@ const MoviesSuggestions = () => {
         ) : popularError ? (
           <p>Erreur de chargement des films populaires</p>
         ) : (
-          <MoviesCarousel movies={popularMovies} sectionTitle="Popular" />
+          <MoviesCarousel
+            movies={popularMovies}
+            sectionTitle="Popular"
+            actionLink="popular"
+          />
         )}
       </section>
       <section>
@@ -56,7 +60,11 @@ const MoviesSuggestions = () => {
         ) : topRatedError ? (
           <p>Erreur de chargement des films les mieux notés</p>
         ) : (
-          <MoviesCarousel movies={topRatedMovies} sectionTitle="Top Rated" />
+          <MoviesCarousel
+            movies={topRatedMovies}
+            sectionTitle="Top Rated"
+            actionLink="top-rated"
+          />
         )}
       </section>
       <section>
@@ -65,7 +73,11 @@ const MoviesSuggestions = () => {
         ) : nowPlayingError ? (
           <p>Erreur de chargement des films en cours de projection</p>
         ) : (
-          <MoviesCarousel movies={nowPlayingMovies} sectionTitle="Now Playing" />
+          <MoviesCarousel
+            movies={nowPlayingMovies}
+            sectionTitle="Now Playing"
+            actionLink="now-playing"
+          />
         )}
       </section>
       <section>
@@ -74,7 +86,11 @@ const MoviesSuggestions = () => {
         ) : upcomingError ? (
           <p>Erreur de chargement des films à venir</p>
         ) : (
-          <MoviesCarousel movies={upcomingMovies} sectionTitle="Upcoming" />
+          <MoviesCarousel
+            movies={upcomingMovies}
+            sectionTitle="Upcoming"
+            actionLink="upcoming"
+          />
         )}
       </section>
     </article>

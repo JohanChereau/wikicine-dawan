@@ -5,6 +5,8 @@ export function useFavorites(userId) {
   const queryClient = useQueryClient();
 
   const fetchFavorites = async () => {
+    if (!userId) return [];
+
     const { data: favorites, error } = await supabase
       .from('favorites')
       .select('*')
@@ -20,10 +22,13 @@ export function useFavorites(userId) {
   const getFavorites = useQuery({
     queryKey: ['favorites', userId],
     queryFn: fetchFavorites,
+    enabled: !!userId,
   });
 
   const addFavorite = useMutation({
     mutationFn: async (movie) => {
+      if (!userId) throw new Error('User is not authenticated');
+
       const { data, error } = await supabase
         .from('favorites')
         .insert({ ...movie, user_id: userId });
@@ -41,6 +46,8 @@ export function useFavorites(userId) {
 
   const removeFavorite = useMutation({
     mutationFn: async (movieId) => {
+      if (!userId) throw new Error('User is not authenticated');
+
       const { data, error } = await supabase
         .from('favorites')
         .delete()

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, Fragment } from 'react';
 import { useMovies } from '@/hooks/use-movies';
 import { Skeleton } from './ui/Skeleton';
 import MoviePreviewCard from './ui/MoviePreviewCard';
@@ -15,7 +15,7 @@ const MovieSearchResults = ({ query }) => {
     triggerOnce: false,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
@@ -47,7 +47,7 @@ const MovieSearchResults = ({ query }) => {
         } gap-6`}
       >
         {data.pages.map((page, pageIndex) => (
-          <React.Fragment key={pageIndex}>
+          <Fragment key={pageIndex}>
             {page.results.map((movie) => (
               <li key={movie.id} className="grid">
                 <MoviePreviewCard
@@ -63,7 +63,7 @@ const MovieSearchResults = ({ query }) => {
                 />
               </li>
             ))}
-          </React.Fragment>
+          </Fragment>
         ))}
       </ul>
 

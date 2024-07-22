@@ -17,13 +17,19 @@ const MoviesCarousel = ({
   movies = [],
   sectionTitle = 'Section title',
   action = 'View all',
+  actionLink = '/movies/category/popular',
 }) => {
   return (
     <div className="max-w-full grid gap-4 md:gap-12 sm:px-8">
       <div className="flex justify-between items-center">
         <h3 className="text-2xl md:text-4xl font-bold">{sectionTitle}</h3>
         <Button variant="link" asChild>
-          <Link className="text-muted-foreground text-base">{action}</Link>
+          <Link
+            className="text-muted-foreground text-base"
+            to={`/movies/category/${actionLink}`}
+          >
+            {action}
+          </Link>
         </Button>
       </div>
       <Carousel
