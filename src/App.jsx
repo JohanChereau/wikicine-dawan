@@ -12,6 +12,7 @@ import UserProfilePage from './pages/UserProfilePage';
 import WikiPage from './pages/WikiPage';
 import { ROLES } from './utils/icons/roles';
 import BookmarksPage from './pages/BookmarksPage';
+import CategoryPage from './pages/CategoryPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -25,7 +26,7 @@ const App = () => {
           element: <HomePage />,
         },
         {
-          path: 'movie',
+          path: 'movies',
           children: [
             {
               path: 'details/:movieId',
@@ -34,6 +35,10 @@ const App = () => {
             {
               path: 'wiki/:movieId',
               element: <WikiPage />,
+            },
+            {
+              path: 'category/:category',
+              element: <CategoryPage />,
             },
           ],
         },

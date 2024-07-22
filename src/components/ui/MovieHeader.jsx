@@ -18,13 +18,13 @@ const MovieHeader = ({ movieData }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (getFavorites.data) {
+    if (userId && getFavorites.data) {
       const favorite = getFavorites.data.find(
         (movie) => movie.movie_id === movieData.id
       );
       setIsFavorite(!!favorite);
     }
-  }, [getFavorites.data, movieData.id]);
+  }, [getFavorites.data, movieData.id, userId]);
 
   const handleGoToPreviousPage = (e) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ const MovieHeader = ({ movieData }) => {
         </Button>
         <div className="flex items-center gap-4">
           <Button className="shadow-lg" asChild>
-            <Link to={`/movie/wiki/${movieData?.id}`}>Wiki</Link>
+            <Link to={`/movies/wiki/${movieData?.id}`}>Wiki</Link>
           </Button>
           {session && (
             <FavoriteHeart isFavorite={isFavorite} onClick={handleToggleFavorite} />
