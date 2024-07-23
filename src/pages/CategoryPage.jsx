@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer';
 import { useMovies } from '@/hooks/use-movies';
 import { Skeleton } from '@/components/ui/Skeleton';
 import MoviePreviewCard from '@/components/ui/MoviePreviewCard';
-import { truncateText } from '@/utils/string/truncate';
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -45,8 +44,8 @@ const CategoryPage = () => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl md:text-4xl font-bold mb-6 capitalize">
+    <div className="container mx-auto py-12">
+      <h2 className="text-2xl md:text-4xl font-bold mb-12 capitalize">
         {category.replace('-', ' ')}
       </h2>
       {isLoading ? (
@@ -61,17 +60,7 @@ const CategoryPage = () => {
             <Fragment key={pageIndex}>
               {page.results.map((movie) => (
                 <li key={movie.id} className="grid">
-                  <MoviePreviewCard
-                    movieId={movie.id}
-                    moviePoster={
-                      movie.poster_path
-                        ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
-                        : 'https://placehold.co/400x600/FACC15/black?text=Wikicin%C3%A9'
-                    }
-                    movieTitle={truncateText(movie.title, 32, '...')}
-                    releaseDate={movie.release_date}
-                    rating={Number(movie.vote_average.toFixed(1))}
-                  />
+                  <MoviePreviewCard movie={movie} />
                 </li>
               ))}
             </Fragment>

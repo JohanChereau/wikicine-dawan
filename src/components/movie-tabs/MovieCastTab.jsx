@@ -18,10 +18,11 @@ const MovieCastTab = ({ movieId }) => {
   if (isLoading) {
     return (
       <ul className="grid grid-cols-auto-fit-200 gap-4">
-        <Skeleton className="w-full aspect-[2/3]" />
-        <Skeleton className="w-full aspect-[2/3]" />
-        <Skeleton className="w-full aspect-[2/3]" />
-        <Skeleton className="w-full aspect-[2/3]" />
+        {Array(4)
+          .fill()
+          .map((_, index) => (
+            <Skeleton key={index} className="w-full aspect-[2/3]" />
+          ))}
       </ul>
     );
   }

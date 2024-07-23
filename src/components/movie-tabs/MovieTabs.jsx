@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs';
 import MovieCastTab from './MovieCastTab';
+import MovieDiscoverTab from './MovieDiscoverTab';
 import MovieReviewsTab from './MovieReviewsTab';
 import { useMovieReviews } from '@/hooks/use-reviews';
 import { useAuth } from '@/services/providers/auth-provider';
@@ -30,7 +31,7 @@ const MovieTabs = ({ movieId, movieTitle, moviePoster }) => {
           <TabsTrigger value="reviews">Reviews</TabsTrigger>
           <TabsTrigger value="critics">Critics</TabsTrigger>
           <TabsTrigger value="cast">Cast</TabsTrigger>
-          <TabsTrigger value="anecdotes">Anecdotes</TabsTrigger>
+          <TabsTrigger value="discover">Discover</TabsTrigger>
         </TabsList>
         <TabsContent value="reviews">
           <MovieReviewsTab
@@ -59,7 +60,9 @@ const MovieTabs = ({ movieId, movieTitle, moviePoster }) => {
         <TabsContent value="cast">
           <MovieCastTab movieId={movieId} />
         </TabsContent>
-        <TabsContent value="anecdotes">Anecdotes</TabsContent>
+        <TabsContent value="discover">
+          <MovieDiscoverTab movieId={movieId} />
+        </TabsContent>
       </Tabs>
     </section>
   );

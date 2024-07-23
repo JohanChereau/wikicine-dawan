@@ -64,10 +64,11 @@ const BookmarksPage = () => {
           <h1 className="text-4xl md:text-6xl font-bold">Bookmarks</h1>
         </div>
         <ul className="grid grid-flow-col grid-cols-auto-fit-200 gap-4">
-          <Skeleton className="w-full aspect-[2/3]" />
-          <Skeleton className="w-full aspect-[2/3]" />
-          <Skeleton className="w-full aspect-[2/3]" />
-          <Skeleton className="w-full aspect-[2/3]" />
+          {Array(4)
+            .fill()
+            .map((_, index) => (
+              <Skeleton key={index} className="w-full aspect-[2/3]" />
+            ))}
         </ul>
       </section>
     );

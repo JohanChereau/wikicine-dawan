@@ -43,9 +43,11 @@ const UserTabs = ({ reviews, isLoading, isError, userId }) => {
   if (isLoading) {
     return (
       <section className="grid grid-flow-row gap-4">
-        <Skeleton className="w-full h-40" />
-        <Skeleton className="w-full h-40" />
-        <Skeleton className="w-full h-40" />
+        {Array(4)
+          .fill()
+          .map((_, index) => (
+            <Skeleton key={index} className="w-full h-40" />
+          ))}
       </section>
     );
   }

@@ -36,10 +36,11 @@ const UserProfileFavorites = ({ userId }) => {
     return (
       <section className="py-20 grid grid-flow-row gap-6 place-items-center w-full">
         <ul className="grid grid-flow-col grid-cols-auto-fit-200 gap-4">
-          <Skeleton className="w-full aspect-[2/3]" />
-          <Skeleton className="w-full aspect-[2/3]" />
-          <Skeleton className="w-full aspect-[2/3]" />
-          <Skeleton className="w-full aspect-[2/3]" />
+          {Array(4)
+            .fill()
+            .map((_, index) => (
+              <Skeleton key={index} className="w-full aspect-[2/3]" />
+            ))}
         </ul>
       </section>
     );
@@ -54,7 +55,7 @@ const UserProfileFavorites = ({ userId }) => {
   }
 
   if (!getFavorites?.data?.length) {
-    return <p className="text-xl md:text-2xl mt-6">No favorites found.</p>;
+    return <p>No favorites found.</p>;
   }
 
   return (
