@@ -43,7 +43,7 @@ const MoviesSuggestions = () => {
     <article className="grid grid-rows-4 gap-16 lg:gap-24">
       <section>
         {popularLoading ? (
-          <Skeleton className="w-full h-40" />
+          <Skeleton className="w-full h-60" />
         ) : popularError ? (
           <p>Erreur de chargement des films populaires</p>
         ) : (
@@ -56,7 +56,7 @@ const MoviesSuggestions = () => {
       </section>
       <section>
         {topRatedLoading ? (
-          <Skeleton className="w-full h-40" />
+          <Skeleton className="w-full h-60" />
         ) : topRatedError ? (
           <p>Erreur de chargement des films les mieux notés</p>
         ) : (
@@ -69,7 +69,7 @@ const MoviesSuggestions = () => {
       </section>
       <section>
         {nowPlayingLoading ? (
-          <Skeleton className="w-full h-40" />
+          <Skeleton className="w-full h-60" />
         ) : nowPlayingError ? (
           <p>Erreur de chargement des films en cours de projection</p>
         ) : (
@@ -82,7 +82,7 @@ const MoviesSuggestions = () => {
       </section>
       <section>
         {upcomingLoading ? (
-          <Skeleton className="w-full h-40" />
+          <Skeleton className="w-full h-60" />
         ) : upcomingError ? (
           <p>Erreur de chargement des films à venir</p>
         ) : (
