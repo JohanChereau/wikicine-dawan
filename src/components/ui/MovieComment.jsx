@@ -1,11 +1,23 @@
+import { useState } from 'react';
 import MovieRating from '@/components/ui/MovieRating';
 import { Card, CardContent, CardFooter, CardHeader } from '../ui/Card';
 import { CalendarDaysIcon } from 'lucide-react';
 import RoleBadge from '../ui/RoleBadge';
 import { Link } from 'react-router-dom';
 import MarkdownPreview from '../MarkdownPreview';
+import { Button } from '../ui/Button';
+import { truncateText } from '@/utils/string/truncate';
 
 const MovieComment = ({ review }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const comment = review?.comment || 'No comment available.';
+  const truncatedComment = truncateText(comment, 300, '...');
+
   return (
     <Card>
       <CardHeader className="flex flex-row flex-wrap gap-4 justify-between">
@@ -33,10 +45,19 @@ const MovieComment = ({ review }) => {
       <CardContent>
         {review?.user_profiles?.role === 'contributor' ? (
           <MarkdownPreview>
-            {review?.comment || 'No comment available.'}
+            {isExpanded ? comment : truncatedComment}
           </MarkdownPreview>
         ) : (
-          <p>{review?.comment || 'No comment available.'}</p>
+          <p>{isExpanded ? comment : truncatedComment}</p>
+        )}
+        {comment.length > 300 && (
+          <Button
+            onClick={handleToggleExpand}
+            className="w-fit p-0 mt-2"
+            variant="link"
+          >
+            {isExpanded ? 'Read less' : 'Read more'}
+          </Button>
         )}
       </CardContent>
       <CardFooter className="w-fit flex gap-2 ml-auto text-muted-foreground">
