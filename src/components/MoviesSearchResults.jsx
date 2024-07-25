@@ -41,7 +41,7 @@ const MovieSearchResults = ({ query }) => {
       <ul
         className={`grid ${
           data.pages[0].results.length > 4
-            ? `grid-cols-auto-fit-200`
+            ? `grid-cols-auto-fit-100 sm:grid-cols-auto-fit-200`
             : `grid-cols-1 sm:grid-cols-2 md:grid-cols-4`
         } gap-6`}
       >

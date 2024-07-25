@@ -27,7 +27,7 @@ const MovieDiscoverTab = ({ movieId }) => {
   }
 
   return (
-    <ul className="grid grid-cols-auto-fit-200 sm:grid-cols-auto-fit-200 gap-4">
+    <ul className="grid grid-cols-auto-fit-150 sm:grid-cols-auto-fit-200 gap-4">
       {movies.map((movie) => (
         <li key={movie.id}>
           <MoviePreviewCard movie={movie} />
