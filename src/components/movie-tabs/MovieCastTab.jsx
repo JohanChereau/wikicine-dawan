@@ -32,7 +32,7 @@ const MovieCastTab = ({ movieId }) => {
   }
 
   return (
-    <ul className="grid grid-cols-auto-fit-200 sm:grid-cols-auto-fit-200 gap-4">
+    <ul className="grid grid-cols-auto-fit-150 sm:grid-cols-auto-fit-200 gap-4">
       {data?.cast?.map((actor) => {
         const profileImage = actor?.profile_path
           ? `https://image.tmdb.org/t/p/original${actor.profile_path}`
