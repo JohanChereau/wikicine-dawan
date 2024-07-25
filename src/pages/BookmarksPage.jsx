@@ -14,6 +14,7 @@ import {
   SelectItem,
   SelectLabel,
 } from '@/components/ui/Select';
+import { truncateText } from '@/utils/string/truncate';
 
 const BookmarksPage = () => {
   const { session, isLoading: authLoading, error: authError } = useAuth();
@@ -63,7 +64,7 @@ const BookmarksPage = () => {
           <BackgroundMesh />
           <h1 className="text-4xl md:text-6xl font-bold">Bookmarks</h1>
         </div>
-        <ul className="grid grid-flow-col grid-cols-auto-fit-200 gap-4">
+        <ul className="grid grid-cols-auto-fit-100 sm:grid-cols-auto-fit-200 gap-4">
           {Array(4)
             .fill()
             .map((_, index) => (
@@ -132,16 +133,16 @@ const BookmarksPage = () => {
         <ul
           className={`grid ${
             filteredFavorites?.length > 4
-              ? `grid-cols-auto-fit-200`
+              ? `grid-cols-auto-fit-100 sm:grid-cols-auto-fit-200`
               : `grid-cols-1 sm:grid-cols-2 md:grid-cols-4`
           } gap-6`}
         >
           {filteredFavorites.map((favorite) => (
-            <li key={favorite.movie_id} className="grid">
+            <li key={favorite.movie_id} className="contents">
               <FavoriteMovieCard
                 movieId={favorite?.movie_id}
                 moviePoster={favorite?.poster_url}
-                movieTitle={favorite?.title}
+                movieTitle={truncateText(favorite?.title, 48, '...')}
                 isFavorite={true}
                 toggleFavorite={() => handleRemoveMovie(favorite?.movie_id)}
               />
