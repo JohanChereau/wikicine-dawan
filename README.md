@@ -1,6 +1,6 @@
 <h1 style="display: flex; flex-wrap: wrap;">
  <span>Wikiciné</span>
- <img src="./public/wikicine_logo.svg" alt=">ikiciné logo, representing a W and a C" width="60" style="margin-left: 16px;"/>
+ <img src="./public/wikicine_logo.svg" alt=">Wikiciné logo, representing a W and a C" width="60" style="margin-left: 16px;"/>
 </h1>
 
 <div style="display: flex; flex-wrap: wrap;">
@@ -107,9 +107,9 @@ Stay tuned for updates!
 
 - [x] **User Logout**: Log out to end the current session.
 
-- [ ] **🚧 Favorites List**: Add, remove, and access a list of favorite movies.
+- [x] **Favorites List**: Add, remove, and access a list of favorite movies.
 
-- [ ] **🚧 Edit Profile**: Modify profile information including profile picture and username.
+- [x] **Edit Profile**: Modify profile information including profile picture, the banner and the biography.
 
 - [x] **View Own Profile**: Access your own personalized profile page.
 
@@ -121,11 +121,11 @@ Stay tuned for updates!
 
 - [x] **Edit Movie Pages**: Add or remove information from movie pages.
 
-- [ ] **Delete Comments**: Moderators can delete comments to regulate the space.
+- [ ] **🚧 Delete Comments**: Moderators can delete comments to regulate the space.
 
-- [ ] **Ban User Accounts**: Moderators can ban user accounts for violations.
+- [ ] **🚧 Ban User Accounts**: Moderators can ban user accounts for violations.
 
-- [ ] **Modify Member Roles**: Moderators can change member roles and privileges.
+- [ ] **🚧 Modify Member Roles**: Moderators can change member roles and privileges.
 
 - [x] **Theme Toggle (Dark/Light)**: Switch between dark and light themes for a personalized viewing experience.
 
@@ -139,7 +139,7 @@ Our journey through Wikiciné's design began with a commitment to excellence in 
 
 In Figma, we meticulously crafted each screen to embody modern aesthetics while prioritizing usability. From the sleek registration and login pages to the vibrant homepage, every element was meticulously placed to enhance user interaction and visual appeal.
 
-### Screenshots Showcase
+### Mockups Showcase
 
 1. **Registration and Login**: Seamlessly integrated, designed for effortless onboarding.
 
@@ -267,7 +267,8 @@ Comprehensive profile view for personalized user interaction and settings manage
 
 🔧 **Ongoing Development**: The project is still under active development, with several features yet to be fully implemented. Our goal is to take Wikiciné to new heights, extending its reach internationally and enhancing its functionality.
 
-- **Administrative Tools and Favorites List**: Development is underway for comprehensive administrative tools and a robust favorites list feature. These will include options to manage user roles, moderate comments, and provide users with a personalized list of favorite movies.
+- **Administrative Tools**: Development is underway for comprehensive administrative tools. These will include options to manage user roles, moderate comments.
+
 - **User Experience Enhancements**: We aim to refine the user experience to make it truly unique. This includes adding clear indicators for actions that require an account, such as posting comments, to ensure users understand the platform's requirements and capabilities.
 
 - **Profile Personalization**: We want to offer more options for users to personalize their profiles. This will allow each member to express their opinions and create a profile that truly represents their personality.
