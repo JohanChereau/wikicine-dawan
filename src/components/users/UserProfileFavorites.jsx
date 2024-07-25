@@ -11,6 +11,7 @@ import {
   SelectItem,
   SelectLabel,
 } from '@/components/ui/Select';
+import { truncateText } from '@/utils/string/truncate';
 
 const UserProfileFavorites = ({ userId }) => {
   const { getFavorites } = useFavorites(userId);
@@ -35,7 +36,7 @@ const UserProfileFavorites = ({ userId }) => {
   if (getFavorites.isLoading) {
     return (
       <section className="py-20 grid grid-flow-row gap-6 place-items-center w-full">
-        <ul className="grid grid-flow-col grid-cols-auto-fit-200 gap-4">
+        <ul className="grid grid-cols-auto-fit-100 sm:grid-cols-auto-fit-200 gap-4">
           {Array(4)
             .fill()
             .map((_, index) => (
@@ -82,7 +83,7 @@ const UserProfileFavorites = ({ userId }) => {
       <ul
         className={`grid ${
           filteredFavorites?.length > 4
-            ? `grid-cols-auto-fit-200`
+            ? `grid-cols-auto-fit-100 sm:grid-cols-auto-fit-200`
             : `grid-cols-1 sm:grid-cols-2 md:grid-cols-4`
         } gap-6`}
       >
@@ -91,7 +92,7 @@ const UserProfileFavorites = ({ userId }) => {
             <FavoriteMovieCard
               movieId={favorite?.movie_id}
               moviePoster={favorite?.poster_url}
-              movieTitle={favorite?.title}
+              movieTitle={truncateText(favorite?.title, 48, '...')}
               displayButton={false}
             />
           </li>

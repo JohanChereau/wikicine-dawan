@@ -22,7 +22,7 @@ const MovieSearchResults = ({ query }) => {
 
   if (isLoading) {
     return (
-      <section className="grid grid-cols-auto-fit-200 gap-6">
+      <section className="grid grid-cols-auto-fit-100 sm:grid-cols-auto-fit-200 gap-6">
         {Array.from({ length: 12 }).map((_, index) => (
           <Skeleton key={index} className="w-full aspect-[2/3]" />
         ))}

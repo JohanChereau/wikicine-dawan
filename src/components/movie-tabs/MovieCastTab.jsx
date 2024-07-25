@@ -17,7 +17,7 @@ const MovieCastTab = ({ movieId }) => {
 
   if (isLoading) {
     return (
-      <ul className="grid grid-cols-auto-fit-200 gap-4">
+      <ul className="grid grid-cols-auto-fit-150 sm:grid-cols-auto-fit-200 gap-4">
         {Array(4)
           .fill()
           .map((_, index) => (
