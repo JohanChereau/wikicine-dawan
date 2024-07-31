@@ -13,6 +13,7 @@ import WikiPage from './pages/WikiPage';
 import { ROLES } from './utils/icons/roles';
 import BookmarksPage from './pages/BookmarksPage';
 import CategoryPage from './pages/CategoryPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const App = () => {
         {
           path: 'signin',
           element: <SignInPage />,
+        },
+        {
+          path: '/reset-password',
+          element: <ResetPasswordPage />,
         },
         {
           path: 'dashboard',

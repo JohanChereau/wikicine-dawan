@@ -137,7 +137,11 @@ const SignInPage = () => {
           />
 
           <div className="ml-auto w-fit">
-            <Button variant="linkMuted">Forgot your password?</Button>
+            <Button variant="linkMuted" asChild>
+              <Link to={`${import.meta.env.VITE_APP_URL}/reset-password`}>
+                Forgot your password?
+              </Link>
+            </Button>
           </div>
 
           <Button type="submit" className="w-full" disabled={isSubmitting}>
