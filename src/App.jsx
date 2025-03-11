@@ -11,6 +11,9 @@ import CreateWikiPage from './pages/CreateWikiPage';
 import UserProfilePage from './pages/UserProfilePage';
 import WikiPage from './pages/WikiPage';
 import { ROLES } from './utils/icons/roles';
+import BookmarksPage from './pages/BookmarksPage';
+import CategoryPage from './pages/CategoryPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -24,7 +27,7 @@ const App = () => {
           element: <HomePage />,
         },
         {
-          path: 'movie',
+          path: 'movies',
           children: [
             {
               path: 'details/:movieId',
@@ -33,6 +36,10 @@ const App = () => {
             {
               path: 'wiki/:movieId',
               element: <WikiPage />,
+            },
+            {
+              path: 'category/:category',
+              element: <CategoryPage />,
             },
           ],
         },
@@ -49,6 +56,10 @@ const App = () => {
           element: <SignInPage />,
         },
         {
+          path: '/reset-password',
+          element: <ResetPasswordPage />,
+        },
+        {
           path: 'dashboard',
           element: <ProtectedRoute allowedRoles={Object.keys(ROLES)} />,
           children: [
@@ -62,7 +73,7 @@ const App = () => {
             },
             {
               path: 'bookmarks',
-              element: null,
+              element: <BookmarksPage />,
             },
             {
               path: 'create-wiki/:movieId',

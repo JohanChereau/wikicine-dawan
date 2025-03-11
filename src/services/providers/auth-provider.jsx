@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
     profile: null,
     session: null,
+    authEvent: null,
   });
   const [channel, setChannel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,8 +41,12 @@ export const AuthProvider = ({ children }) => {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUserInfo({ session, profile: null });
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
+        session,
+        authEvent: event,
+      }));
       if (session?.user) {
         fetchUserProfile(session.user.id);
       } else {

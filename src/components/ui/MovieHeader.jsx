@@ -1,16 +1,59 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './Button';
-import { useNavigate } from 'react-router-dom';
 import Badge from './Badge';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
 import MovieRating from './MovieRating';
+import FavoriteHeart from './FavoriteHeart';
+import { useFavorites } from '@/hooks/use-favorites';
+import { useAuth } from '@/services/providers/auth-provider';
+import { useState, useEffect } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
 const MovieHeader = ({ movieData }) => {
   const navigate = useNavigate();
+  const { session } = useAuth();
+  const userId = session?.user?.id;
+  const { getFavorites, addFavorite, removeFavorite } = useFavorites(userId);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (userId && getFavorites.data) {
+      const favorite = getFavorites.data.find(
+        (movie) => movie.movie_id === movieData.id
+      );
+      setIsFavorite(!!favorite);
+    }
+  }, [getFavorites.data, movieData.id, userId]);
 
   const handleGoToPreviousPage = (e) => {
     e.preventDefault();
     navigate(-1);
+  };
+
+  const handleToggleFavorite = async () => {
+    if (!session) return;
+
+    try {
+      if (isFavorite) {
+        await removeFavorite(movieData?.id);
+      } else {
+        const newFavorite = {
+          movie_id: movieData?.id,
+          title: movieData?.title,
+          poster_url: `https://image.tmdb.org/t/p/original${movieData?.poster_path}`,
+        };
+        await addFavorite(newFavorite);
+      }
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error('Error toggling favorite:', error?.message);
+      toast({
+        title: 'Error toggling favorite',
+        description: error?.message || 'An unknown error occurred',
+        status: 'error',
+      });
+    }
   };
 
   const {
@@ -38,9 +81,14 @@ const MovieHeader = ({ movieData }) => {
             <ArrowLeftIcon />
           </Link>
         </Button>
-        <Button className="shadow-lg" asChild>
-          <Link to={`/movie/wiki/${movieData?.id}`}>Wiki</Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <Button className="shadow-lg" asChild>
+            <Link to={`/movies/wiki/${movieData?.id}`}>Wiki</Link>
+          </Button>
+          {session && (
+            <FavoriteHeart isFavorite={isFavorite} onClick={handleToggleFavorite} />
+          )}
+        </div>
       </div>
 
       <div className="grid gap-3 self-end translate-y-2 pt-20 pb-6 dark:pb-0 bg-gradient-to-t from-black dark:from-background to-transparent rounded-b-md">

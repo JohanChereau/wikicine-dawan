@@ -23,8 +23,11 @@ const ProtectedRoute = ({ allowedRoles = [] }) => {
   if (isLoading) {
     return (
       <section className="grid gap-8">
-        <Skeleton className="w-full h-40" />
-        <Skeleton className="w-full h-40" />
+        {Array(4)
+          .fill()
+          .map((_, index) => (
+            <Skeleton key={index} className="w-full h-40" />
+          ))}
       </section>
     );
   }

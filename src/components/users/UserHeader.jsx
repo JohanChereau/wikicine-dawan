@@ -32,7 +32,7 @@ const UserHeader = ({ userProfile }) => {
         <EditUserProfileModal userId={user_id} />
       </div>
 
-      <div className="grid gap-3 self-end translate-y-2 pt-20 pb-6 dark:pb-0 bg-gradient-to-t from-black dark:from-background to-transparent rounded-b-md">
+      <div className="grid gap-3 self-end translate-y-2 pt-20 pb-6 px-4 dark:pb-0 bg-gradient-to-t from-black dark:from-background to-transparent rounded-b-md">
         <div className="flex flex-col justify-center items-center gap-4">
           <img
             src={`${
